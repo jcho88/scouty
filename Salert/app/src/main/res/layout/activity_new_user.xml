@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rektgg.salert.NewUser">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/header" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Salert"
+                android:id="@+id/textView3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/registrationForm">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/et_Username"
+            android:hint="Username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/et_Email"
+            android:layout_below="@+id/et_Username"
+            android:layout_alignLeft="@+id/et_Username"
+            android:layout_alignStart="@+id/et_Username"
+            android:hint="Email" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/et_Password"
+            android:layout_below="@+id/et_Email"
+            android:layout_alignLeft="@+id/et_Email"
+            android:layout_alignStart="@+id/et_Email"
+            android:hint="Password" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/et_RepeatPassword"
+            android:layout_below="@+id/et_Password"
+            android:layout_alignLeft="@+id/et_Password"
+            android:layout_alignStart="@+id/et_Password"
+            android:hint="Repeat Password" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:id="@+id/b_Register"
+            android:layout_below="@+id/et_RepeatPassword"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</LinearLayout>
