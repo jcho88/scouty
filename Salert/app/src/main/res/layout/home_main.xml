@@ -52,7 +52,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageButton"
+                android:id="@+id/search_button"
                 android:src="@android:drawable/ic_menu_search"
                 android:background="#00000000" />
         </LinearLayout>
@@ -81,7 +81,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/gps_button"
                     android:src="@drawable/home_gps_temp"
                     android:background="#00000000" />
             </LinearLayout>
@@ -112,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New User"
-            android:id="@+id/button"
+            android:id="@+id/register_button"
             android:layout_weight="1"
             android:layout_gravity="center_vertical" />
 
@@ -120,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log in"
-            android:id="@+id/button2"
+            android:id="@+id/login_button"
             android:layout_weight="1"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
