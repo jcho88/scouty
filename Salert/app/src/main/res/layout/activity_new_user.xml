@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rektgg.salert.NewUser">
+    tools:context=".NewUserActivity">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:id="@+id/et_Username"
+            android:id="@+id/et_username"
             android:hint="Username"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp" />
@@ -47,10 +47,10 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/et_Email"
-            android:layout_below="@+id/et_Username"
-            android:layout_alignLeft="@+id/et_Username"
-            android:layout_alignStart="@+id/et_Username"
+            android:id="@+id/et_email"
+            android:layout_below="@+id/et_username"
+            android:layout_alignLeft="@+id/et_username"
+            android:layout_alignStart="@+id/et_username"
             android:hint="Email" />
 
         <EditText
@@ -58,10 +58,10 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/et_Password"
-            android:layout_below="@+id/et_Email"
-            android:layout_alignLeft="@+id/et_Email"
-            android:layout_alignStart="@+id/et_Email"
+            android:id="@+id/et_password"
+            android:layout_below="@+id/et_email"
+            android:layout_alignLeft="@+id/et_email"
+            android:layout_alignStart="@+id/et_email"
             android:hint="Password" />
 
         <EditText
@@ -69,18 +69,18 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/et_RepeatPassword"
-            android:layout_below="@+id/et_Password"
-            android:layout_alignLeft="@+id/et_Password"
-            android:layout_alignStart="@+id/et_Password"
+            android:id="@+id/et_repeat_password"
+            android:layout_below="@+id/et_password"
+            android:layout_alignLeft="@+id/et_password"
+            android:layout_alignStart="@+id/et_password"
             android:hint="Repeat Password" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register"
-            android:id="@+id/b_Register"
-            android:layout_below="@+id/et_RepeatPassword"
+            android:id="@+id/b_register"
+            android:layout_below="@+id/et_repeat_password"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>

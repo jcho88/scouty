@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rektgg.salert.Login">
+    tools:context=".LoginActivity">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:id="@+id/et_Username_login"
+            android:id="@+id/username"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="120dp"
@@ -48,18 +48,18 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/et_Password_login"
-            android:layout_below="@+id/et_Username_login"
-            android:layout_alignLeft="@+id/et_Username_login"
-            android:layout_alignStart="@+id/et_Username_login"
+            android:id="@+id/password"
+            android:layout_below="@+id/username"
+            android:layout_alignLeft="@+id/username"
+            android:layout_alignStart="@+id/username"
             android:hint="Password" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log in"
-            android:id="@+id/b_Login"
-            android:layout_below="@+id/et_Password_login"
+            android:id="@+id/b_login"
+            android:layout_below="@+id/password"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>
