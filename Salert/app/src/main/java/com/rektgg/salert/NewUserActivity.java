@@ -2,12 +2,19 @@ package com.rektgg.salert;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.view.View;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class NewUserActivity extends AppCompatActivity {
 
@@ -98,6 +105,41 @@ public class NewUserActivity extends AppCompatActivity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_mismatched_passwords));
         }
+
         validationErrorMessage.append(getString(R.string.error_end));
+
+        //show error message in toast
+        if (validationError) {
+            Toast.makeText(NewUserActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        //handle progress dialog
+        final ProgressDialog dialog = new ProgressDialog(NewUserActivity.this);
+        dialog.setMessage(getString(R.string.progress_signup));
+        dialog.show();
+
+        //create new parse user
+        ParseUser user = new ParseUser();
+        user.setUsername(username);
+        user.setPassword(password);
+
+        //call parse sign up async
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                dialog.dismiss();
+                if (e != null) {
+                    //show error message in toast
+                    Toast.makeText(NewUserActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    //handle redirect to home page
+                    Intent intent = new Intent(NewUserActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

@@ -2,4 +2,6 @@
     <string name="app_name">Salert</string>
     <string name="action_settings">Settings</string>
     <string name="signup">Sign up</string>
+    <string name="progress_login">Logging you in&#8230;</string>
+    <string name="progress_signup">Signing you up&#8230;</string>
 </resources>
