@@ -73,7 +73,10 @@
             android:layout_below="@+id/et_password"
             android:layout_alignLeft="@+id/et_password"
             android:layout_alignStart="@+id/et_password"
-            android:hint="Repeat Password" />
+            android:hint="Repeat Password"
+            android:imeActionId="@+id/et_register_action_id"
+            android:imeActionLabel="@string/signup"
+            android:imeOptions="actionDone" />
 
         <Button
             android:layout_width="wrap_content"
