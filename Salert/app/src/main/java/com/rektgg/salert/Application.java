@@ -39,7 +39,7 @@ public class Application extends android.app.Application{
                 .build()
         );*/
 
-        ParseObject gameScore = new ParseObject("GameScore");
+/*        ParseObject gameScore = new ParseObject("GameScore");
         gameScore.put("score", 1337);
         gameScore.put("playerName", "Sean Plott");
         gameScore.put("cheatMode", false);
@@ -52,6 +52,6 @@ public class Application extends android.app.Application{
                     e.getMessage();
                 }
             }
-        });
+        });*/
     }
 }
