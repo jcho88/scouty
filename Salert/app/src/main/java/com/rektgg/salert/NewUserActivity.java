@@ -63,7 +63,9 @@ public class NewUserActivity extends AppCompatActivity {
         String password = passwordRegister.getText().toString().trim();
         String passwordRepeat = passwordRepeatRegister.getText().toString().trim();
 
+        boolean emailVerified = false;
         boolean validationError = false;
+        
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
 
         //handle blank username
