@@ -123,6 +123,7 @@ public class NewUserActivity extends AppCompatActivity {
         //create new parse user
         ParseUser user = new ParseUser();
         user.setUsername(username);
+        user.setEmail(email);
         user.setPassword(password);
 
         //call parse sign up async
