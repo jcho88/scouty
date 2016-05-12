@@ -8,13 +8,19 @@ import com.parse.ParseObject;
  */
 public class Application extends android.app.Application{
 
+    public Application() {
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Parse.enableLocalDatastore(this);
+
         Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
                 .applicationId("APPLICATION_ID")
                 .clientKey(null)
-                .server("http://localhost:1337/parse/")
+                .server("http://10.1.92.42:1337/parse/")
 
                 .build()
         );
