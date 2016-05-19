@@ -29,38 +29,45 @@ public class LoginActivity extends AppCompatActivity {
         usernameLogin = (EditText) findViewById(R.id.username);
         passwordLogin = (EditText) findViewById(R.id.password);
 
+        //handle when user presses soft key "Done"
         passwordLogin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == R.id.et_login_action_id ||
                         actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                    login();
+                    loginUser();
                     return true;
                 }
                 return false;
             }
         });
 
+        //handle login button
         Button loginButton = (Button) findViewById(R.id.b_login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                login();
+                loginUser();
             }
         });
 
     }
 
-    private void login() {
+    //handle invalid inputs & registration
+    private void loginUser() {
         String username = usernameLogin.getText().toString().trim();
         String password = passwordLogin.getText().toString().trim();
 
-        // Validate the log in data
         boolean validationError = false;
+
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
+
+        //handle blank username
         if (username.length() == 0) {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_username));
         }
+
+        //handle blank password
         if (password.length() == 0) {
             if (validationError) {
                 validationErrorMessage.append(getString(R.string.error_join));
@@ -68,29 +75,31 @@ public class LoginActivity extends AppCompatActivity {
             validationError = true;
             validationErrorMessage.append(getString(R.string.error_blank_password));
         }
+
         validationErrorMessage.append(getString(R.string.error_end));
 
-        // If there is a validation error, display the error
+        //show error message in toast
         if (validationError) {
             Toast.makeText(LoginActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
                     .show();
             return;
         }
 
-        // Set up a progress dialog
+        //handle progress dialog
         final ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
         dialog.setMessage(getString(R.string.progress_login));
         dialog.show();
-        // Call the Parse login method
+
+        //call parse log in async
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 dialog.dismiss();
                 if (e != null) {
-                    // Show the error message
+                    //show error message in toast
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
-                    // Start an intent for the dispatch activity
+                    //handle redirect to home page
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
