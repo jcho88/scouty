@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import android.util.Log;
 import android.view.View;
@@ -39,8 +40,15 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        // Sign up button click handler
+        Button loginButton = (Button) findViewById(R.id.login_button);
         Button signupButton = (Button) findViewById(R.id.register_button);
+
+        if (ParseUser.getCurrentUser() != null) {
+            signupButton.setVisibility(View.GONE);
+            loginButton.setVisibility(View.GONE);
+        }
+        // Sign up button click handler
+
         signupButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent for the sign up activity
@@ -49,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Log in button click handler
-        Button loginButton = (Button) findViewById(R.id.login_button);
+
         loginButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent of the log in activity
