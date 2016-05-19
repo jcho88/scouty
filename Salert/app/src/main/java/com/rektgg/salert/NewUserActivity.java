@@ -65,7 +65,7 @@ public class NewUserActivity extends AppCompatActivity {
 
         boolean emailVerified = false;
         boolean validationError = false;
-        
+
         StringBuilder validationErrorMessage = new StringBuilder(getString(R.string.error_intro));
 
         //handle blank username
