@@ -1,0 +1,56 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/iv_shopProfilePic"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@color/bright_foreground_disabled_material_light" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="270dp"
+            android:layout_height="74dp"
+            android:text="address"
+            android:id="@+id/tv_shopAddress"
+            android:textSize="20sp"
+            android:layout_gravity="left|center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="distance"
+            android:textSize="20sp"
+            android:id="@+id/tv_distanceFromUser" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:textColor="#FFFFFF"
+        android:padding="2dp"
+        android:text="Deals"
+        android:gravity="center"
+        android:background="#336699"
+        android:id="@+id/tv_listview_header" />
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/lv_deals"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout >
