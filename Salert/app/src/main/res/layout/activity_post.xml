@@ -1,144 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:scrollbars="vertical"
     tools:context=".PostActivity">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/header" >
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp"
-            android:layout_marginTop="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/posting_header"
-                android:id="@+id/textView3" />
-        </LinearLayout>
-    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/postForm"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="30dp">
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/header" >
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="20dp">
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Type of Deal:"
-                    android:id="@+id/tv_deal_type"
-                    android:paddingBottom="15dp"/>
+                    android:text="@string/posting_header"
+                    android:id="@+id/textView3" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postForm"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="30dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Type of Deal:"
+                        android:id="@+id/tv_deal_type"
+                        android:paddingBottom="15dp"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sale"
+                            android:id="@+id/radioButton" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Promo"
+                            android:id="@+id/radioButton2" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Discount"
+                            android:id="@+id/radioButton3" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal">
+                    android:layout_height="match_parent">
 
-                    <RadioButton
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sale"
-                        android:id="@+id/radioButton" />
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Date:"
+                        android:id="@+id/tv_deal_date" />
 
-                    <RadioButton
+                    <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Promo"
-                        android:id="@+id/radioButton2" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Discount"
-                        android:id="@+id/radioButton3" />
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/et_deal_date" />
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Date:"
-                    android:id="@+id/tv_deal_date" />
+                    android:text="Deal Description:"
+                    android:id="@+id/tv_deal_description" />
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/et_deal_date" />
+                    <EditText
+                        android:scrollbars="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/et_deal_description"
+                        android:hint="Whats the Deal?"
+                        android:paddingLeft="5dp"/>
+
             </LinearLayout>
-
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp">
+            android:text="Submit"
+            android:id="@+id/button"
+            android:layout_below="@+id/et_deal_description"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Deal Description:"
-                android:id="@+id/tv_deal_description" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:id="@+id/et_deal_description"
-                android:hint="Whats the Deal?"
-                android:paddingLeft="5dp"
-                android:maxLines ="4" />
-        </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/button"
-        android:layout_below="@+id/et_deal_description"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal" />
-
-</LinearLayout>
+</ScrollView>
