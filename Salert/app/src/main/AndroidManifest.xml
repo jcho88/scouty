@@ -29,7 +29,8 @@
         <activity android:name=".ShopProfileActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ShopListActivity"></activity>
-        <activity android:name=".PostActivity"></activity>
+        <activity android:name=".PostActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
