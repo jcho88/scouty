@@ -73,19 +73,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Sale"
-                            android:id="@+id/radioButton" />
+                            android:id="@+id/radio_sale_button" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Promo"
-                            android:id="@+id/radioButton2" />
+                            android:id="@+id/radio_promo_button" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Discount"
-                            android:id="@+id/radioButton3" />
+                            android:id="@+id/radio_discount_button" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -141,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
-            android:id="@+id/button"
+            android:id="@+id/bt_submit"
             android:layout_below="@+id/et_deal_description"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
