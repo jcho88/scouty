@@ -12,6 +12,8 @@ import com.parse.SaveCallback;
  */
 public class Application extends android.app.Application{
 
+    private static ConfigHelper configHelper;
+
     public Application() {
     }
 
@@ -27,6 +29,9 @@ public class Application extends android.app.Application{
                 .server("http://10.1.92.42:1337/parse/")
                 .build()
         );
+
+        configHelper = new ConfigHelper();
+        configHelper.fetchConfigIfNeeded();
 
 /*        Log.d("here", "app");
 
@@ -54,4 +59,9 @@ public class Application extends android.app.Application{
             }
         });*/
     }
+
+    public static ConfigHelper getConfigHelper() {
+        return configHelper;
+    }
+
 }

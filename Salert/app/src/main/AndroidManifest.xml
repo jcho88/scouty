@@ -30,7 +30,11 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ShopListActivity"></activity>
         <activity android:name=".PostActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:parentActivityName=".ShopProfileActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShopProfileActivity"/></activity>
     </application>
 
 </manifest>

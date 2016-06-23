@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,22 +21,47 @@ public class PostActivity extends AppCompatActivity {
 
     private Button submitButton;
     private EditText postEditText;
+    private TextView characterCounterTextView;
+
+    private int maxCharacterCount = Application.getConfigHelper().getPostMaxCharacterCount();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_post);
 
-        submitButton = (Button) findViewById(R.id.bt_submit);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        submitButton = (Button) findViewById(R.id.bt_submit_post);
+        postEditText = (EditText) findViewById(R.id.et_deal_description);
+        characterCounterTextView = (TextView) findViewById(R.id.tv_character_counter);
+
+        postEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updatePostButtonState();
+                updateCharacterCountTextViewText();
+            }
+        });
+
         submitButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 post();
             }
         });
 
-//        Intent intent = new Intent(PostActivity.this, ShopProfileActivity.class);
-//        intent.putExtra(Application.INTENT_EXTRA_LOCATION, myLoc);
-//        startActivity(intent);
+        updatePostButtonState();
+        updateCharacterCountTextViewText();
+
     }
 
     private void post () {
@@ -56,14 +83,34 @@ public class PostActivity extends AppCompatActivity {
         acl.setPublicReadAccess(true);
         post.setACL(acl);
 
+        //give user repeated access to the user's post as long as the same user is logged in
+        ParseACL.setDefaultACL(acl, true);
+
         // Save the post
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 dialog.dismiss();
                 finish();
+                Intent intent = new Intent(PostActivity.this, ShopProfileActivity.class);
+                startActivity(intent);
             }
         });
 
+    }
+
+    private String getPostEditTextText () {
+        return postEditText.getText().toString().trim();
+    }
+
+    private void updatePostButtonState () {
+        int length = getPostEditTextText().length();
+        boolean enabled = length > 0 && length < maxCharacterCount;
+        submitButton.setEnabled(enabled);
+    }
+
+    private void updateCharacterCountTextViewText () {
+        String characterCountString = String.format("%d/%d", postEditText.length(), maxCharacterCount);
+        characterCounterTextView.setText(characterCountString);
     }
 }
