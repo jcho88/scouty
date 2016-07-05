@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class ShopDealsAdaptor extends ArrayAdapter {
     Context context;
     int resource;
-    ShopDeals data[] = null;
+    ShopDeals data[] = null; //user "crowdsourced" deals (ShopDeals.java class)
 
     public ShopDealsAdaptor(Context context, int resource, ShopDeals[] data) {
         super(context, resource, data);

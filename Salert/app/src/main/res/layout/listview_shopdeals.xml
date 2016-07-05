@@ -13,7 +13,8 @@
         android:layout_gravity="center_horizontal">
 
         <TextView
-            android:layout_width="80sp"
+            android:layout_width="0dp"
+            android:layout_weight=".20"
             android:layout_height="fill_parent"
             android:text="User :"
             android:textStyle="bold"
@@ -22,7 +23,8 @@
             android:background="@color/accent_material_dark" />
 
         <TextView
-            android:layout_width="250sp"
+            android:layout_width="0dp"
+            android:layout_weight=".70"
             android:layout_height="fill_parent"
             android:text="username"
             android:textSize="20sp"
@@ -30,13 +32,15 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight=".10"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical">
 
             <ImageButton
-                android:layout_width="30sp"
-                android:layout_height="30sp"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
                 android:id="@+id/ib_upvote" />
         </LinearLayout>
 
@@ -49,7 +53,8 @@
         android:layout_gravity="center_horizontal">
 
         <TextView
-            android:layout_width="80dp"
+            android:layout_width="0dp"
+            android:layout_weight=".20"
             android:layout_height="fill_parent"
             android:text="Details :"
             android:textStyle="bold"
@@ -58,20 +63,23 @@
             />
 
         <TextView
-            android:layout_width="250sp"
+            android:layout_width="0dp"
+            android:layout_weight=".70"
             android:layout_height="wrap_content"
             android:text="Deal Details"
             android:textSize="20sp"
             android:id="@+id/tv_shopDeals_deal" />
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight=".10"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical">
 
             <ImageButton
-                android:layout_width="30sp"
-                android:layout_height="30sp"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
                 android:id="@+id/ib_downvote" />
         </LinearLayout>
     </LinearLayout>

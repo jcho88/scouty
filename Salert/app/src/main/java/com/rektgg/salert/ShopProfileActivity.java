@@ -25,7 +25,8 @@ public class ShopProfileActivity extends AppCompatActivity {
                         new ShopDeals("Teemo", "Captain Teemo!!! Hut, 2, 3, 4"),
                         new ShopDeals("Lucian", "Everybody dies, some need a little help"),
                         new ShopDeals("Rammus", "ok"),
-                        new ShopDeals("Vayne", "Let us hunt those who follow the darkness")
+                        new ShopDeals("Vayne", "Let us hunt those who follow the darkness"),
+                        new ShopDeals("me", "Let us hunt those who follow the darkness sfahufhshd6fjhasd6jf;sad6j;klfl;s6dak;lfksl'dkf;sda6jf;khsalidkjvnsc kja6sbfd6lkjfhljsadnflmsnd.mfnsd.kj6bfkj6shdfljk")
                 };
 
         //setting up Arrayadatet with class ShopDealsAdaptor
