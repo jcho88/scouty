@@ -26,7 +26,7 @@ public class ShopDealsAdaptor extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        dealsDetailHolder holder = null;
+        dealsDetailHolder holder = null; //this holder is for reuse
 
         if(row == null)
         {
