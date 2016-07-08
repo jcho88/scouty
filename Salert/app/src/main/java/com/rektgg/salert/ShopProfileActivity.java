@@ -29,7 +29,7 @@ public class ShopProfileActivity extends AppCompatActivity {
                         new ShopDeals("me", "Let us hunt those who follow the darkness sfahufhshd6fjhasd6jf;sad6j;klfl;s6dak;lfksl'dkf;sda6jf;khsalidkjvnsc kja6sbfd6lkjfhljsadnflmsnd.mfnsd.kj6bfkj6shdfljk")
                 };
 
-        //setting up Arrayadatet with class ShopDealsAdaptor
+        //setting up Array adapter with class ShopDealsAdaptor
         ShopDealsAdaptor adapter = new ShopDealsAdaptor(this,
                 R.layout.listview_shopdeals, shopdeals_data);
         //setting up shops profile
