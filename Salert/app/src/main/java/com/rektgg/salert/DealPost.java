@@ -1,5 +1,6 @@
 package com.rektgg.salert;
 
+import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -7,6 +8,8 @@ import com.parse.ParseUser;
 /**
  * Created by Justin on 5/23/2016.
  */
+
+@ParseClassName("posts")
 public class DealPost extends ParseObject {
 
     public String getText() {
