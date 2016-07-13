@@ -8,14 +8,16 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class ShopProfileActivity extends AppCompatActivity {
     private ListView listView1;
     private TextView shopAddress;
     private TextView shopDistanceFromUser;
 
-    private String user;
-    private String post;
+    private String currentUser;
+    private String userPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +26,11 @@ public class ShopProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop_profile);
         shopAddress = (TextView)findViewById(R.id.tv_shopAddress);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
-        DealPost info = new DealPost();
 
-        user = info.getUser().toString();
-        post = info.getText().toString();
+        DealPost dealInfo = new DealPost();
+
+        currentUser = dealInfo.getUser().toString().trim();
+        userPost = dealInfo.getText().toString().trim();
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 
@@ -38,10 +41,12 @@ public class ShopProfileActivity extends AppCompatActivity {
             }
         });
 
-        while(!(user == null) && !(post == null)) {
+        ShopDeals shopdeals_data[] = new ShopDeals
+
+        while(!(currentUser == null) && !(userPost == null)) {
             ShopDeals shopdeals_data[] = new ShopDeals[]
                     {
-                            new ShopDeals(user, post)
+                            new ShopDeals(currentUser, userPost)
 //                        new ShopDeals("Draven", "Welcome to the league of Draven"),
 //                        new ShopDeals("Teemo", "Captain Teemo!!! Hut, 2, 3, 4"),
 //                        new ShopDeals("Lucian", "Everybody dies, some need a little help"),
@@ -51,12 +56,6 @@ public class ShopProfileActivity extends AppCompatActivity {
                     };
         }
 
-        ShopDeals shopdeals_data[] = new ShopDeals[]
-                {
-
-                  new ShopDeals("Tester", "Testing")
-
-                };
 
         //setting up Array adapter with class ShopDealsAdaptor
         ShopDealsAdaptor adapter = new ShopDealsAdaptor(this,
