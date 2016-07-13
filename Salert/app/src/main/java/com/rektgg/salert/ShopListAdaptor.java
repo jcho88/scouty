@@ -51,7 +51,7 @@ public class ShopListAdaptor  extends ArrayAdapter {
 
         ShopsProfile shopprofile = data[position];
         holder.shopname.setText(shopprofile.shop_name);
-        holder.numOfShopdeals.setText(shopprofile.shop_deals.size());
+        holder.numOfShopdeals.setText(Integer.toString(shopprofile.shop_deals.size()));
         holder.shopaddress.setText(shopprofile.shop_address);
         holder.userDistance.setText(shopprofile.user_distance);
 
