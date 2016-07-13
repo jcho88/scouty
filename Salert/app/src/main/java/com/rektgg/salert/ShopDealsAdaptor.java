@@ -8,15 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by steve_000 on 5/19/2016.
  */
 public class ShopDealsAdaptor extends ArrayAdapter {
     Context context;
     int resource;
-    ShopDeals data[] = null; //user "crowdsourced" deals (ShopDeals.java class)
+    ArrayList<ShopDeals> data; //user "crowdsourced" deals (ShopDeals.java class)
 
-    public ShopDealsAdaptor(Context context, int resource, ShopDeals[] data) {
+    public ShopDealsAdaptor(Context context, int resource, ArrayList<ShopDeals> data) {
         super(context, resource, data);
         this.resource = resource;
         this.context = context;
@@ -44,7 +46,7 @@ public class ShopDealsAdaptor extends ArrayAdapter {
             holder = (dealsDetailHolder)row.getTag();
         }
 
-        ShopDeals shopdeals = data[position];
+        ShopDeals shopdeals = data.get(position);
         holder.username.setText(shopdeals.username);
         holder.dealDetails.setText(shopdeals.dealDetails);
 

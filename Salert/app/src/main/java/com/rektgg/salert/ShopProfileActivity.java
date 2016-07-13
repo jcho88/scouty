@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+
 public class ShopProfileActivity extends AppCompatActivity {
     private ListView listView1;
     private TextView shopAddress;
@@ -41,19 +43,21 @@ public class ShopProfileActivity extends AppCompatActivity {
             }
         });
 
-        ShopDeals shopdeals_data[] = new ShopDeals
+        ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
+
+
 
         while(!(currentUser == null) && !(userPost == null)) {
-            ShopDeals shopdeals_data[] = new ShopDeals[]
-                    {
-                            new ShopDeals(currentUser, userPost)
+            shopdeals_data.add(new ShopDeals(currentUser, userPost));
+ //                   {
+
 //                        new ShopDeals("Draven", "Welcome to the league of Draven"),
 //                        new ShopDeals("Teemo", "Captain Teemo!!! Hut, 2, 3, 4"),
 //                        new ShopDeals("Lucian", "Everybody dies, some need a little help"),
 //                        new ShopDeals("Rammus", "ok"),
 //                        new ShopDeals("Vayne", "Let us hunt those who follow the darkness"),
 //                        new ShopDeals("me", "Let us hunt those who follow the darkness sfahufhshd6fjhasd6jf;sad6j;klfl;s6dak;lfksl'dkf;sda6jf;khsalidkjvnsc kja6sbfd6lkjfhljsadnflmsnd.mfnsd.kj6bfkj6shdfljk")
-                    };
+//                    };
         }
 
 
