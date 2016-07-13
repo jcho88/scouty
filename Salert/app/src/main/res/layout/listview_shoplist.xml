@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:text="miles"
                 android:paddingLeft="5dp"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:layout_gravity="center"
                 android:id="@+id/tv_shoplist_distance"
                 android:layout_weight="0.48" />
