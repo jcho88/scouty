@@ -10,6 +10,10 @@ import com.parse.ParseUser;
 
 public class DealPost extends ParseObject {
 
+    public DealPost(){
+        super();
+    }
+
     public String getText() {
         return getString("text");
     }
