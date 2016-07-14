@@ -43,7 +43,7 @@ public class Application extends android.app.Application{
 
                 .build()
         );*/
-
+/*
        ParseObject gameScore = new ParseObject("GameScore");
         gameScore.put("score", 1337);
         gameScore.put("playerName", "Sean Plott");
@@ -57,7 +57,7 @@ public class Application extends android.app.Application{
                     e.getMessage();
                 }
             }
-        });
+        });*/
     }
 
     public static ConfigHelper getConfigHelper() {
