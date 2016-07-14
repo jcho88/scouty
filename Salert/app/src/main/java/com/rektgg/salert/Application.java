@@ -23,10 +23,10 @@ public class Application extends android.app.Application{
 
         Parse.enableLocalDatastore(this);
 
-        Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
-                .applicationId("APPLICATION_ID")
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId("1107IiIaKxsLaMxdgCda")
                 .clientKey(null)
-                .server("http://10.1.92.42:1337/parse/")
+                .server("http://scouty.mybluemix.net/parse/")
                 .build()
         );
 
@@ -44,7 +44,7 @@ public class Application extends android.app.Application{
                 .build()
         );*/
 
-/*        ParseObject gameScore = new ParseObject("GameScore");
+       ParseObject gameScore = new ParseObject("GameScore");
         gameScore.put("score", 1337);
         gameScore.put("playerName", "Sean Plott");
         gameScore.put("cheatMode", false);
@@ -57,7 +57,7 @@ public class Application extends android.app.Application{
                     e.getMessage();
                 }
             }
-        });*/
+        });
     }
 
     public static ConfigHelper getConfigHelper() {

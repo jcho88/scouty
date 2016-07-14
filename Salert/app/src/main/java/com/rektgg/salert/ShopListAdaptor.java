@@ -37,8 +37,10 @@ public class ShopListAdaptor  extends ArrayAdapter {
             row = inflater.inflate(resource, parent, false);
 
             holder = new shopsDetailHolder();
-            holder.shopname = (TextView)row.findViewById(R.id.tv_shopDeals_username);
-            holder.shopdeals = (TextView)row.findViewById(R.id.tv_shopDeals_deal);
+            holder.shopaddress = (TextView)row.findViewById(R.id.tv_shoplist_shop_address);
+            holder.userDistance = (TextView)row.findViewById(R.id.tv_shoplist_distance);
+            holder.shopname = (TextView)row.findViewById(R.id.tv_shoplist_shop_name);
+            holder.numOfShopdeals = (TextView)row.findViewById(R.id.tv_shoplist_numbersOfDeals);
 
             row.setTag(holder);
         }
@@ -49,7 +51,7 @@ public class ShopListAdaptor  extends ArrayAdapter {
 
         ShopsProfile shopprofile = data[position];
         holder.shopname.setText(shopprofile.shop_name);
-        //holder.shopdeals.setText(shopprofile.shop_deals);
+        holder.numOfShopdeals.setText(Integer.toString(shopprofile.shop_deals.size()));
         holder.shopaddress.setText(shopprofile.shop_address);
         holder.userDistance.setText(shopprofile.user_distance);
 
@@ -59,7 +61,7 @@ public class ShopListAdaptor  extends ArrayAdapter {
     static class shopsDetailHolder
     {
         TextView shopname;
-        TextView shopdeals;
+        TextView numOfShopdeals;
         TextView shopaddress;
         TextView userDistance;
     }

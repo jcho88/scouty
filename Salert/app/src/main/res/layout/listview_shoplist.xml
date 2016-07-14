@@ -7,7 +7,9 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="135dp">
-
+        <!--
+        showing number of deals
+          -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
@@ -38,12 +40,16 @@
                 android:layout_weight="0.48" />
 
         </LinearLayout>
-
+    <!--
+    this view is for the col line separation.
+      -->
     <View
         android:layout_width="1dp"
         android:layout_height="fill_parent"
         android:background="#FF0000FF" />
-
+        <!--
+        shop names and address
+          -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
@@ -75,7 +81,9 @@
         android:background="#FF0000FF" />
 
 
-
+        <!--
+        miles, distance from shops
+          -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="0dp"
@@ -88,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:text="miles"
                 android:paddingLeft="5dp"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:layout_gravity="center"
                 android:id="@+id/tv_shoplist_distance"
                 android:layout_weight="0.48" />

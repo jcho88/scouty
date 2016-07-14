@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         Button signupButton = (Button) findViewById(R.id.register_button);
+        ImageButton gpsButton = (ImageButton) findViewById(R.id.gps_button);
 
         if (ParseUser.getCurrentUser() != null) {
             signupButton.setVisibility(View.GONE);
@@ -62,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Starts an intent of the log in activity
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
+
+        gpsButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ShopProfileActivity.class));
             }
         });
 
