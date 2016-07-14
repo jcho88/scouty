@@ -29,7 +29,7 @@ public class Application extends android.app.Application{
         super.onCreate();
 
         Parse.enableLocalDatastore(this);
-
+        ParseObject.registerSubclass(DealPost.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("1107IiIaKxsLaMxdgCda")
                 .clientKey(null)
