@@ -24,7 +24,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     private TextView shopAddress;
     private TextView shopDistanceFromUser;
     private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
-    private String currentUser;
+    private ParseObject currentUser;
     private String userPost;
 
 
@@ -47,9 +47,9 @@ public class ShopProfileActivity extends AppCompatActivity {
                 if (e == null) {
 
                     for (ParseObject object : objectList) {
-                        ParseObject username = object.getParseObject("_p_user");
-                        String post = username.getString("text");
-                        shopdeals_data.add(new ShopDeals(username.toString(), post));
+                        currentUser = object.getParseObject("_p_user");
+                        userPost = currentUser.getString("text");
+                        shopdeals_data.add(new ShopDeals(currentUser.toString(), userPost));
                     }
                 }
             };
