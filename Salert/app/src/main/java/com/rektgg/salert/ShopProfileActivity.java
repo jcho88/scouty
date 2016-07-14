@@ -23,7 +23,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     private ListView listView1;
     private TextView shopAddress;
     private TextView shopDistanceFromUser;
-    private ArrayList<ShopDeals> shopdeals_data = new ArrayList<>();
+    private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
     private String currentUser;
     private String userPost;
 
@@ -37,26 +37,23 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
-
+        query.include("_p_user");
+        query.include("text");
+        query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
-            public void done(List<ParseObject> objects, ParseException e) {
+            public void done(List<ParseObject> objectList, ParseException e) {
                 if (e == null) {
-                    if(objects.size()>0 ){
-                        for (ParseObject username : objects) {
-                            String currentUser = username.getString("username");
-                            String userPost = "i dono";
 
-                            shopdeals_data.add(new ShopDeals(currentUser, userPost));
-                        }
-                    }else{
-                        // No records found
+                    for (ParseObject object : objectList) {
+                        ParseObject username = object.getParseObject("_p_user");
+                        String post = username.getString("text");
+                        shopdeals_data.add(new ShopDeals(username.toString(), post));
                     }
-                } else {
-                    //Handle the exception
                 }
-            }
+            };
+
         });
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
@@ -69,7 +66,7 @@ public class ShopProfileActivity extends AppCompatActivity {
         });
 
 
-        shopdeals_data.add(new ShopDeals("TestUser", "TestPost"));
+//        shopdeals_data.add(new ShopDeals("TestUser", "TestPost"));
 
         //setting up Array adapter with class ShopDealsAdaptor
         ShopDealsAdaptor adapter = new ShopDealsAdaptor(this,
