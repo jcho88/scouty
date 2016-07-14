@@ -24,8 +24,9 @@ public class ShopProfileActivity extends AppCompatActivity {
     private TextView shopAddress;
     private TextView shopDistanceFromUser;
     private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
-    private ParseObject currentUser;
+    private String currentUser;
     private String userPost;
+    private ParseQuery<DealPost> postQuery;
 
 
     @Override
@@ -36,25 +37,38 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopAddress = (TextView)findViewById(R.id.tv_shopAddress);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
-        query.include("_p_user");
-        query.include("text");
-        query.addDescendingOrder("createdAt");
-        query.findInBackground(new FindCallback<ParseObject>() {
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
+//        query.include("_p_user");
+//        query.include("text");
+//        query.addDescendingOrder("createdAt");
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//
+//            @Override
+//            public void done(List<ParseObject> objectList, ParseException e) {
+//                if (e == null) {
+//
+//                    for (ParseObject object : objectList) {
+//                        currentUser = object.getParseObject("_p_user");
+//                        userPost = currentUser.getString("text");
+//                        shopdeals_data.add(new ShopDeals(currentUser.toString(), userPost));
+//                    }
+//                }
+//            };
+//
+//        });
 
-            @Override
-            public void done(List<ParseObject> objectList, ParseException e) {
-                if (e == null) {
+        postQuery = new ParseQuery<DealPost>("DealPost") {
 
-                    for (ParseObject object : objectList) {
-                        currentUser = object.getParseObject("_p_user");
-                        userPost = currentUser.getString("text");
-                        shopdeals_data.add(new ShopDeals(currentUser.toString(), userPost));
-                    }
+            public void getInfo(DealPost info, String user, String post) {
+                if (user == null || post == null) {
+                    shopdeals_data.add(new ShopDeals("No current Deals", "Add One!"));
                 }
-            };
+                currentUser = info.getUser().getUsername();
+                userPost = info.getText();
 
-        });
+                shopdeals_data.add(new ShopDeals(currentUser, userPost));
+            }
+        };
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 
