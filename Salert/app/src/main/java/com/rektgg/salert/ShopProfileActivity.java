@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -35,6 +36,14 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
 
+        DealPost dealInfo = new DealPost();
+        if(currentUser == null || userPost == null) {
+           Log.d("hi", "poop");
+        }else {
+            currentUser = dealInfo.getUser().toString().trim();
+            userPost = dealInfo.getText().toString().trim();
+        }
+
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 
         postDealButton.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +60,8 @@ public class ShopProfileActivity extends AppCompatActivity {
 
 
         while(!(currentUser == null) && !(userPost == null)) {
-            shopdeals_data.add(new ShopDeals(currentUser, userPost));
- //                   {
+                shopdeals_data.add(new ShopDeals(currentUser, userPost));
+                //                   {
 
 //                        new ShopDeals("Draven", "Welcome to the league of Draven"),
 //                        new ShopDeals("Teemo", "Captain Teemo!!! Hut, 2, 3, 4"),
@@ -61,6 +70,7 @@ public class ShopProfileActivity extends AppCompatActivity {
 //                        new ShopDeals("Vayne", "Let us hunt those who follow the darkness"),
 //                        new ShopDeals("me", "Let us hunt those who follow the darkness sfahufhshd6fjhasd6jf;sad6j;klfl;s6dak;lfksl'dkf;sda6jf;khsalidkjvnsc kja6sbfd6lkjfhljsadnflmsnd.mfnsd.kj6bfkj6shdfljk")
 //                    };
+
         }
 
 

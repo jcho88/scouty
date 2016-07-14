@@ -8,7 +8,10 @@ import com.parse.ParseUser;
 /**
  * Created by Justin on 5/23/2016.
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9fa8aa10a8bdc3fb2780cfb1ee51d761574dda6a
 @ParseClassName("DealPost")
 public class DealPost extends ParseObject {
 
