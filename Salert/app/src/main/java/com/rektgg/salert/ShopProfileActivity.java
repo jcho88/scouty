@@ -8,10 +8,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopProfileActivity extends AppCompatActivity {
     private ListView listView1;
@@ -29,10 +34,6 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopAddress = (TextView)findViewById(R.id.tv_shopAddress);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
-        DealPost dealInfo = new DealPost();
-
-        currentUser = dealInfo.getUser().toString().trim();
-        userPost = dealInfo.getText().toString().trim();
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 
@@ -42,6 +43,8 @@ public class ShopProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ShopProfileActivity.this, PostActivity.class));
             }
         });
+
+
 
         ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
 
