@@ -1,16 +1,23 @@
 package com.rektgg.salert;
 
-import android.util.Log;
+
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
+
+
 
 /**
  * Created by Justin on 5/11/2016.
  */
 public class Application extends android.app.Application{
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     private static ConfigHelper configHelper;
 

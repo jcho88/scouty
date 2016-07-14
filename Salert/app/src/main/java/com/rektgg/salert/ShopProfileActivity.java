@@ -9,15 +9,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.ParseQuery;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class ShopProfileActivity extends AppCompatActivity {
     private ListView listView1;
