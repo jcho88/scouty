@@ -23,9 +23,10 @@ public class ShopProfileActivity extends AppCompatActivity {
     private ListView listView1;
     private TextView shopAddress;
     private TextView shopDistanceFromUser;
-
+    private ArrayList<ShopDeals> shopdeals_data = new ArrayList<>();
     private String currentUser;
     private String userPost;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +36,28 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopAddress = (TextView)findViewById(R.id.tv_shopAddress);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
 
-        DealPost dealInfo = new DealPost();
-        if(currentUser == null || userPost == null) {
-           Log.d("hi", "poop");
-        }else {
-            currentUser = dealInfo.getUser().toString().trim();
-            userPost = dealInfo.getText().toString().trim();
-        }
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    if(objects.size()>0 ){
+                        for (ParseObject username : objects) {
+                            String currentUser = username.getString("username");
+                            String userPost = "i dono";
+
+                            shopdeals_data.add(new ShopDeals(currentUser, userPost));
+                        }
+                    }else{
+                        // No records found
+                    }
+                } else {
+                    //Handle the exception
+                }
+            }
+        });
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 
@@ -54,25 +69,7 @@ public class ShopProfileActivity extends AppCompatActivity {
         });
 
 
-
-        ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
-
-
-
-        while(!(currentUser == null) && !(userPost == null)) {
-                shopdeals_data.add(new ShopDeals(currentUser, userPost));
-                //                   {
-
-//                        new ShopDeals("Draven", "Welcome to the league of Draven"),
-//                        new ShopDeals("Teemo", "Captain Teemo!!! Hut, 2, 3, 4"),
-//                        new ShopDeals("Lucian", "Everybody dies, some need a little help"),
-//                        new ShopDeals("Rammus", "ok"),
-//                        new ShopDeals("Vayne", "Let us hunt those who follow the darkness"),
-//                        new ShopDeals("me", "Let us hunt those who follow the darkness sfahufhshd6fjhasd6jf;sad6j;klfl;s6dak;lfksl'dkf;sda6jf;khsalidkjvnsc kja6sbfd6lkjfhljsadnflmsnd.mfnsd.kj6bfkj6shdfljk")
-//                    };
-
-        }
-
+        shopdeals_data.add(new ShopDeals("TestUser", "TestPost"));
 
         //setting up Array adapter with class ShopDealsAdaptor
         ShopDealsAdaptor adapter = new ShopDealsAdaptor(this,
