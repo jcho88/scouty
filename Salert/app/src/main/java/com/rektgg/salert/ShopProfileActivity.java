@@ -52,7 +52,7 @@ public class ShopProfileActivity extends AppCompatActivity {
                 if (e == null) {
 
                     for (ParseObject object : objectList) {
-                          Log.d("PO", object.getString("text"));
+                        Log.d("PO", object.getString("text"));
 //                        currentUser = object.getParseObject("_p_user");
 //                        userPost = currentUser.getString("text");
 //                        shopdeals_data.add(new ShopDeals(currentUser.toString(), userPost));
