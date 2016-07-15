@@ -9,7 +9,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShopProfileActivity extends AppCompatActivity {
@@ -19,7 +27,8 @@ public class ShopProfileActivity extends AppCompatActivity {
     private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
     private String currentUser;
     private String userPost;
-    private ParseQuery<DealPost> postQuery;
+    private ParseQuery<DealPost> postQueryUser;
+    private ParseQuery<DealPost> postQueryPost;
 
 
     @Override
@@ -50,18 +59,36 @@ public class ShopProfileActivity extends AppCompatActivity {
 //
 //        });
 
-        postQuery = new ParseQuery<DealPost>("DealPost") {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
+        query.addDescendingOrder("text");
+        query.include("user");
 
-            public void getInfo(DealPost info, String user, String post) {
-                if (user == null || post == null) {
-                    shopdeals_data.add(new ShopDeals("No current Deals", "Add One!"));
-                }
-                currentUser = info.getUser().getUsername();
-                userPost = info.getText();
+        query.findInBackground(new FindCallback<ParseObject>() {
 
-                shopdeals_data.add(new ShopDeals(currentUser, userPost));
+            @Override
+            public void done(List<ParseObject> text, ParseException e) {
+
+               if (e == null) {
+                   ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+                   query.whereEqualTo("id", text.get(0).getParseObject(""));
+                   query.findInBackground(new FindCallback<ParseUser>() {
+                       @Override
+                       public void done(List<ParseUser> users, ParseException e) {
+
+                           if (e == null) {
+                               currentUser = users.get(0).getString("user");
+                           }
+                       }
+                   });
+                   int listSize = text.size();
+
+                   //loop through each post in 'text'
+                   for (int i = 0; i < listSize; i++) {
+                       shopdeals_data.add(new ShopDeals(currentUser, userPost));
+                   }
+               }
             }
-        };
+        });
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 
