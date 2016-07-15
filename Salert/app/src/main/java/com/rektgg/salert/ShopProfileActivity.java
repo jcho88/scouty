@@ -1,6 +1,8 @@
 package com.rektgg.salert;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,10 +26,10 @@ public class ShopProfileActivity extends AppCompatActivity {
     private TextView shopAddress;
     private TextView shopDistanceFromUser;
     private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
-    private String currentUser;
-    private String userPost;
+    String userName;
+    String userPost;
     private ParseQuery<DealPost> postQuery;
-
+//    final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,42 +40,55 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
-        //query.include("_p_user");
-        //query.include("text");
-        //query.addDescendingOrder("createdAt");
-        Log.d("PO","asd");
+        //get dialog before async
+        //dialog.setMessage(getString(R.string.progress_deal));
+        //dialog.show();
+
         query.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
             public void done(List<ParseObject> objectList, ParseException e) {
-                Log.d("PO","in done");
-//                Log.i("PO list size", Integer.toString(objectList.size()));
-//                Log.i("PO error msg", e.getMessage());
+                Log.d("PO", "in done");
+                //                Log.i("PO list size", Integer.toString(objectList.size()));
+                //                Log.i("PO error msg", e.getMessage());
                 if (e == null) {
 
                     for (ParseObject object : objectList) {
+                        //dialog.dismiss();
                         Log.d("PO", object.getString("text"));
-//                        currentUser = object.getParseObject("_p_user");
-//                        userPost = currentUser.getString("text");
-//                        shopdeals_data.add(new ShopDeals(currentUser.toString(), userPost));
+                        ParseObject theUser = object.getParseUser("user");
+                        userName = theUser.toString();
+                        userPost = object.getString("text");
+
+                        Log.d("doom", userPost);
+                        shopdeals_data.add(new ShopDeals(userName, userPost));
+
+                        //setting up Array adapter with class ShopDealsAdaptor
+                        ShopDealsAdaptor adapter = new ShopDealsAdaptor(ShopProfileActivity.this,
+                                R.layout.listview_shopdeals, shopdeals_data);
+                        //setting up shops profile
+                        shopDistanceFromUser.setText("10" + " miles");
+                        shopAddress.setText("123456 Dino road Apt 123, Lake sideDino, California 12345");
+
+                        //setting up list view
+                        listView1 = (ListView)findViewById(R.id.lv_deals);
+                        listView1.setAdapter(adapter);
+                        Log.d("doom", userName);
+                        Log.d("doom", userPost);
+                        //                        currentUser = object.getParseObject("_p_user");
+                        //                        userPost = currentUser.getString("text");
                     }
                 }
-            };
+
+            }
 
         });
 
-//        postQuery = new ParseQuery<DealPost>("DealPost") {
-//
-//            public void getInfo(DealPost info, String user, String post) {
-//                if (user == null || post == null) {
-//                    shopdeals_data.add(new ShopDeals("No current Deals", "Add One!"));
-//                }
-//                currentUser = info.getUser().getUsername();
-//                userPost = info.getText();
-//
-//                shopdeals_data.add(new ShopDeals(currentUser, userPost));
-//            }
-//        };
+        //new getPostInfo().execute();
+
+        //hide Action Bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 
@@ -84,24 +99,7 @@ public class ShopProfileActivity extends AppCompatActivity {
             }
         });
 
-
-//        shopdeals_data.add(new ShopDeals("TestUser", "TestPost"));
-
-        //setting up Array adapter with class ShopDealsAdaptor
-        ShopDealsAdaptor adapter = new ShopDealsAdaptor(this,
-                R.layout.listview_shopdeals, shopdeals_data);
-        //setting up shops profile
-        shopDistanceFromUser.setText("10" + " miles");
-        shopAddress.setText("123456 Dino road Apt 123, Lake sideDino, California 12345");
-
-
-        //setting up list view
-        listView1 = (ListView)findViewById(R.id.lv_deals);
-        listView1.setAdapter(adapter);
-
-        //hide Action Bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
     }
+
+
 }

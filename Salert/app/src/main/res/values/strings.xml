@@ -7,5 +7,6 @@
     <string name="progress_signup">Signing you up&#8230;</string>
     <string name="posting_header">Post up a Deal!</string>
     <string name="progress_post">Posting&#8230;</string>
+    <string name="progress_deal">Finding Deals&#8230;</string>
     <string name="character_count_placeholder">0/140</string>
 </resources>
