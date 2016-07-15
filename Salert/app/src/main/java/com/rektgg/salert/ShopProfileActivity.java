@@ -9,7 +9,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShopProfileActivity extends AppCompatActivity {
@@ -30,38 +37,43 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopAddress = (TextView)findViewById(R.id.tv_shopAddress);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
-//        query.include("_p_user");
-//        query.include("text");
-//        query.addDescendingOrder("createdAt");
-//        query.findInBackground(new FindCallback<ParseObject>() {
-//
-//            @Override
-//            public void done(List<ParseObject> objectList, ParseException e) {
-//                if (e == null) {
-//
-//                    for (ParseObject object : objectList) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
+        //query.include("_p_user");
+        //query.include("text");
+        //query.addDescendingOrder("createdAt");
+        Log.d("PO","asd");
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> objectList, ParseException e) {
+                Log.d("PO","in done");
+//                Log.i("PO list size", Integer.toString(objectList.size()));
+//                Log.i("PO error msg", e.getMessage());
+                if (e == null) {
+
+                    for (ParseObject object : objectList) {
+                          Log.d("PO", object.getString("text"));
 //                        currentUser = object.getParseObject("_p_user");
 //                        userPost = currentUser.getString("text");
 //                        shopdeals_data.add(new ShopDeals(currentUser.toString(), userPost));
-//                    }
-//                }
-//            };
-//
-//        });
-
-        postQuery = new ParseQuery<DealPost>("DealPost") {
-
-            public void getInfo(DealPost info, String user, String post) {
-                if (user == null || post == null) {
-                    shopdeals_data.add(new ShopDeals("No current Deals", "Add One!"));
+                    }
                 }
-                currentUser = info.getUser().getUsername();
-                userPost = info.getText();
+            };
 
-                shopdeals_data.add(new ShopDeals(currentUser, userPost));
-            }
-        };
+        });
+
+//        postQuery = new ParseQuery<DealPost>("DealPost") {
+//
+//            public void getInfo(DealPost info, String user, String post) {
+//                if (user == null || post == null) {
+//                    shopdeals_data.add(new ShopDeals("No current Deals", "Add One!"));
+//                }
+//                currentUser = info.getUser().getUsername();
+//                userPost = info.getText();
+//
+//                shopdeals_data.add(new ShopDeals(currentUser, userPost));
+//            }
+//        };
 
         ImageButton postDealButton = (ImageButton) findViewById(R.id.ib_addDeals);
 

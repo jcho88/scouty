@@ -3,16 +3,19 @@ package com.rektgg.salert;
 
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 
 /**
  * Created by Justin on 5/11/2016.
  */
 public class Application extends android.app.Application{
-    
+
     //this is for Apps with Over 64K Methods fixed
     @Override
     protected void attachBaseContext(Context base) {
@@ -30,13 +33,29 @@ public class Application extends android.app.Application{
         super.onCreate();
 
         Parse.enableLocalDatastore(this);
-        ParseObject.registerSubclass(DealPost.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("1107IiIaKxsLaMxdgCda")
-                .clientKey(null)
-                .server("http://scouty.mybluemix.net/parse/")
-                .build()
+            .applicationId("1107IiIaKxsLaMxdgCda")
+            .clientKey(null)
+            .server("http://scouty.mybluemix.net/parse/")
+            .build()
         );
+        ParseObject.registerSubclass(DealPost.class);
+
+//        Log.i("Parse", "Save asdasdas");
+//        ParseObject gameScore = new ParseObject("GameScore");
+//        gameScore.put("score", 1337);
+//        gameScore.put("playerName", "Sean Plott");
+//        gameScore.put("cheatMode", false);
+//        gameScore.saveInBackground(new SaveCallback() {
+//            public void done(ParseException e) {
+//                if (e == null) {
+//                    Log.i("Parse", "Save Succeeded");
+//                } else {
+//                    Log.i("Parse", "Save Failed");
+//                    e.getMessage();
+//                }
+//            }
+//        });
 
         configHelper = new ConfigHelper();
         configHelper.fetchConfigIfNeeded();
@@ -51,21 +70,7 @@ public class Application extends android.app.Application{
 
                 .build()
         );*/
-/*
-       ParseObject gameScore = new ParseObject("GameScore");
-        gameScore.put("score", 1337);
-        gameScore.put("playerName", "Sean Plott");
-        gameScore.put("cheatMode", false);
-        gameScore.saveInBackground(new SaveCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.i("Parse", "Save Succeeded");
-                } else {
-                    Log.i("Parse", "Save Failed");
-                    e.getMessage();
-                }
-            }
-        });*/
+
     }
 
     public static ConfigHelper getConfigHelper() {
