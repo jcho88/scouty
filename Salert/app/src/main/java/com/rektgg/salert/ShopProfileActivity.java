@@ -16,6 +16,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +41,7 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
-        //get dialog before async
-        //dialog.setMessage(getString(R.string.progress_deal));
-        //dialog.show();
+        query.include("user");
 
         query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -56,8 +55,9 @@ public class ShopProfileActivity extends AppCompatActivity {
                     for (ParseObject object : objectList) {
                         //dialog.dismiss();
                         Log.d("PO", object.getString("text"));
-                        ParseObject theUser = object.getParseUser("user");
-                        userName = theUser.toString();
+
+                        ParseUser theUser = object.getParseUser("user");
+                        userName = theUser.getUsername();
                         userPost = object.getString("text");
 
                         Log.d("doom", userPost);
