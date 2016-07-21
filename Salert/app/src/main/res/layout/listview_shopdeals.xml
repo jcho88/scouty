@@ -20,7 +20,8 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_gravity="left|center_vertical"
-            android:background="@color/accent_material_dark" />
+            android:background="@color/accent_material_dark"
+            />
 
         <TextView
             android:layout_width="0dp"
@@ -41,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
                 android:layout_gravity="center"
-                android:id="@+id/ib_upvote" />
+                android:id="@+id/ib_upvote"
+                android:longClickable="true" />
         </LinearLayout>
 
     </LinearLayout>
@@ -84,6 +86,14 @@
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Created At: "
+        android:textSize="13sp"
+        android:id="@+id/tv_shopdeals_createdAt"
+        android:layout_gravity="left|center_vertical"
+        />
 
     <View
         android:layout_width="match_parent"
