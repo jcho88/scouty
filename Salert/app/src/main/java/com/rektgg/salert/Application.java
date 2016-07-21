@@ -23,6 +23,13 @@ public class Application extends android.app.Application{
         MultiDex.install(this);
     }
 
+    // Debugging tag for the application
+    public static final String APPTAG = "Scouty";
+
+    // Debugging switch
+    public static final boolean APPDEBUG = false;
+
+    // detect change in text input helper
     private static ConfigHelper configHelper;
 
     public Application() {
