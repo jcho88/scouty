@@ -55,13 +55,13 @@ public class ShopProfileActivity extends AppCompatActivity {
 
                     for (ParseObject object : objectList) {
                         //dialog.dismiss();
-                        Log.d("PO", object.getString("text"));
+//                        Log.d("PO", object.getString("text"));
 
                         ParseUser theUser = object.getParseUser("user");
                         userName = theUser.getUsername();
                         userPost = object.getString("text");
 
-                        Log.d("doom", userPost);
+//                        Log.d("doom", userPost);
                         shopdeals_data.add(new ShopDeals(userName, userPost));
 
                         //setting up Array adapter with class ShopDealsAdaptor
@@ -74,8 +74,8 @@ public class ShopProfileActivity extends AppCompatActivity {
                         //setting up list view
                         listView1 = (ListView)findViewById(R.id.lv_deals);
                         listView1.setAdapter(adapter);
-                        Log.d("doom", userName);
-                        Log.d("doom", userPost);
+//                        Log.d("doom", userName);
+//                        Log.d("doom", userPost);
                         //                        currentUser = object.getParseObject("_p_user");
                         //                        userPost = currentUser.getString("text");
                     }

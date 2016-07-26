@@ -28,7 +28,7 @@ public class Application extends android.app.Application{
     public static final String APPTAG = "Scouty";
 
     //Google API key
-    public static final String GOOGLEAPI = "AIzaSyDzH3TBEZgiRNK8d_2sDdCBbHHFA69uL38";
+    public static final String API = "AIzaSyDzH3TBEZgiRNK8d_2sDdCBbHHFA69uL38";
 
 
     // Debugging switch
