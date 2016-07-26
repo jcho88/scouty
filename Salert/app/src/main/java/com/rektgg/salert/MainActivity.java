@@ -90,7 +90,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 
     private Location lastLocation;
     private Location currentLocation;
-    private int checkPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+    public static final String API = "AIzaSyDzH3TBEZgiRNK8d_2sDdCBbHHFA69uL38";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
