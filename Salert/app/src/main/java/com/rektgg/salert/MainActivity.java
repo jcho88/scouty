@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     private Location lastLocation;
     private Location currentLocation;
 
-    public static final String API = "AIzaSyDzH3TBEZgiRNK8d_2sDdCBbHHFA69uL38";
+    public static final String API = "AIzaSyBBpDwSSigz71S5ITu7v4acH3n6RcgNZik";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +117,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
+        if(!(locClient == null)) {
+            Log.d("tag", "loc client not null");
+        }
+        else {
+            Log.d("tag", "loc client is null");
+        }
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -280,7 +287,12 @@ public class MainActivity extends FragmentActivity implements LocationListener,
         if (Application.APPDEBUG) {
             Log.d("Connected", Application.APPTAG);
         }
+        Log.d("test", "inside onConnected");
+
         currentLocation = getLocation();
+
+        Log.d("test", "current Location = " + getLocation());
+
         startPeriodicUpdates();
     }
 
