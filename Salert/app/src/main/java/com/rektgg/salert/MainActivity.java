@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
-import com.parse.ParseUser;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.parse.FindCallback;
+import com.parse.ParseUser;
+import com.parse.ParseGeoPoint;
 
 public class MainActivity extends FragmentActivity implements LocationListener,
         GoogleApiClient.ConnectionCallbacks,
@@ -196,6 +199,62 @@ public class MainActivity extends FragmentActivity implements LocationListener,
         return true;
     }
 
+ /*
+  * Called when the Activity is no longer visible at all. Stop updates and disconnect.
+  */
+    @Override
+    public void onStop() {
+        // If the client is connected
+        if (locClient.isConnected()) {
+            stopPeriodicUpdates();
+        }
+
+        // After disconnect() is called, the client is considered "dead".
+        locClient.disconnect();
+
+        super.onStop();
+    }
+
+    /*
+     * Called when the Activity is restarted, even before it becomes visible.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Connect to the location services client
+        locClient.connect();
+    }
+
+    /*
+     * Called when the Activity is resumed. Updates the view.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Application.getConfigHelper().fetchConfigIfNeeded();
+
+        // Get the latest search distance preference
+//        radius = Application.getSearchDistance();
+        // Checks the last saved location to show cached data if it's available
+        if (lastLocation != null) {
+            LatLng myLatLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+            // If the search distance preference has been changed, move
+            // map to new bounds.
+//            if (lastRadius != radius) {
+//                updateZoom(myLatLng);
+//            }
+//            // Update the circle map
+//            updateCircle(myLatLng);
+        }
+//        // Save the current radius
+//        lastRadius = radius;
+//        // Query for the latest data to update the views.
+//        doMapQuery();
+//        doListQuery();
+    }
+
     private boolean servicesConnected() {
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 
@@ -268,14 +327,15 @@ public class MainActivity extends FragmentActivity implements LocationListener,
      */
     public void onLocationChanged(Location location) {
         currentLocation = location;
-//        if (lastLocation != null
-//                && geoPointFromLocation(location)
-//                .distanceInKilometersTo(geoPointFromLocation(lastLocation)) < 0.01) {
-//            // If the location hasn't changed by more than 10 meters, ignore it.
-//            return;
-//        }
-//        lastLocation = location;
-//        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        if (lastLocation != null
+                && geoPointFromLocation(location)
+                .distanceInKilometersTo(geoPointFromLocation(lastLocation)) < 0.01) {
+            // If the location hasn't changed by more than 10 meters, ignore it.
+            return;
+        }
+        lastLocation = location;
+        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
 //        if (!hasSetUpInitialLocation) {
 //            // Zoom to the current location.
 //            updateZoom(myLatLng);
@@ -317,6 +377,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
         }
 
         return null;
+    }
+
+    /*
+  * Helper method to get the Parse GEO point representation of a location
+  */
+    private ParseGeoPoint geoPointFromLocation(Location loc) {
+        return new ParseGeoPoint(loc.getLatitude(), loc.getLongitude());
     }
 
     /*
