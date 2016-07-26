@@ -29,6 +29,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
     String userName;
     String userPost;
+    DealPost post = new DealPost();
     private ParseQuery<DealPost> postQuery;
 //    final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
 

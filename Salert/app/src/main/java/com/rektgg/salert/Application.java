@@ -26,6 +26,10 @@ public class Application extends android.app.Application{
     // Debugging tag for the application
     public static final String APPTAG = "Scouty";
 
+    //Google API key
+    public static final String GOOGLEAPI = "AIzaSyDzH3TBEZgiRNK8d_2sDdCBbHHFA69uL38";
+
+
     // Debugging switch
     public static final boolean APPDEBUG = false;
 
