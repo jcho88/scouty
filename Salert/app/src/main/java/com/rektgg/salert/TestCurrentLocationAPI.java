@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -23,23 +25,31 @@ import com.google.android.gms.location.places.Places;
 public class TestCurrentLocationAPI extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
     private static final String LOG_TAG = "PlacesAPIActivity";
-    private static final int GOOGLE_API_CLIENT_ID = 1;
+    private static final int GOOGLE_API_CLIENT_ID = 0;
     private GoogleApiClient mGoogleApiClient;
     private static final int PERMISSION_REQUEST_CODE = 100;
+    private TextView textView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_current_location_api);
         Button currentButton = (Button) findViewById(R.id.currentButton);
-        mGoogleApiClient = new GoogleApiClient.Builder(TestCurrentLocationAPI.this)
+        textView5 =(TextView)findViewById(R.id.textView5);
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
+                .enableAutoManage(this, this)
                 .build();
+
         currentButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                if (mGoogleApiClient.isConnected() && ContextCompat.checkSelfPermission(TestCurrentLocationAPI.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                if (mGoogleApiClient.isConnected()) {
                     if (ContextCompat.checkSelfPermission(TestCurrentLocationAPI.this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             != PackageManager.PERMISSION_GRANTED) {
@@ -54,8 +64,24 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements
                 else {
                     Log.d(LOG_TAG, "Permission not Granted");
                 }
+
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if( mGoogleApiClient != null )
+            mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        if( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
+            mGoogleApiClient.disconnect();
+        }
+        super.onStop();
     }
 
     @Override
@@ -82,21 +108,23 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements
         }
     }
 
-    private void callPlaceDetectionApi() throws SecurityException {
-        PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
-                .getCurrentPlace(mGoogleApiClient, null);
-        result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
-            @Override
-            public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
-                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                    Log.i(LOG_TAG, String.format("Place '%s' with " +
-                                    "likelihood: %g",
-                            placeLikelihood.getPlace().getName(),
-                            placeLikelihood.getLikelihood()));
+    private void callPlaceDetectionApi() {
+        if (ContextCompat.checkSelfPermission(TestCurrentLocationAPI.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace(mGoogleApiClient, null);
+            result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
+                String currentPlace = "fails if this shows";
+                @Override
+                public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
+                    for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                        currentPlace.format("Place '%s' has likelihood: %g",
+                                placeLikelihood.getPlace().getName(),
+                                placeLikelihood.getLikelihood());
+                    }
+                    textView5.setText(currentPlace);
+                    likelyPlaces.release();
                 }
-                Log.d(LOG_TAG, "LIKELY PLACES + " + likelyPlaces);
-                likelyPlaces.release();
-            }
-        });
+            });
+        }
     }
 }

@@ -37,4 +37,13 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/truiton_image"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/currentButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="57dp" />
+
 </RelativeLayout>
