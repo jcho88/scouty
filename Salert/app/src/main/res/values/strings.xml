@@ -11,4 +11,9 @@
     <string name="search_distance">Search Radius</string>
     <string name="settings_distance_format">%d feet</string>
     <string name="character_count_placeholder">0/140</string>
+
+    <string name="lbl_you_are_at">YOU ARE AT</string>
+    <string name="btn_get_location">GET MY LOCATION</string>
+    <string name="btn_start_location_updates">START LOCATION UPDATES</string>
+    <string name="btn_stop_location_updates">STOP LOCATION UPDATES</string>
 </resources>

@@ -47,7 +47,8 @@
                 android:value=".ShopProfileActivity" />
         </activity>
         <activity android:name=".TestAPIActivity" />
-        <activity android:name=".TestCurrentLocationAPI"></activity>
+        <activity android:name=".TestCurrentLocationAPI" />
+        <activity android:name=".TestGPSActivity"></activity>
     </application>
 
 </manifest>
