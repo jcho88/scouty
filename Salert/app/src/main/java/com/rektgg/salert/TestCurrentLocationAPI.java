@@ -2,6 +2,7 @@ package com.rektgg.salert;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,117 +15,176 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 
 
-public class TestCurrentLocationAPI extends AppCompatActivity implements
+public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     private static final String LOG_TAG = "PlacesAPIActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private GoogleApiClient mGoogleApiClient;
     private static final int PERMISSION_REQUEST_CODE = 100;
-    private TextView textView5;
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
+    private TextView textView4, textView5;
+    private Location mLastLocation;
+    private LocationRequest mLocationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_current_location_api);
         Button currentButton = (Button) findViewById(R.id.currentButton);
+        textView4 =(TextView)findViewById(R.id.textView4);
         textView5 =(TextView)findViewById(R.id.textView5);
 
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
-                .build();
+        // First we need to check availability of play services
+        if (checkPlayServices()) {
+
+//            mGoogleApiClient = new GoogleApiClient
+//                    .Builder(this)
+//                    .addApi(Places.GEO_DATA_API)
+//                    .addApi(Places.PLACE_DETECTION_API)
+//                    .enableAutoManage(this, this)
+//                    .build();
+
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage( this, 0, this )
+                    .addApi( Places.GEO_DATA_API )
+                    .addApi( Places.PLACE_DETECTION_API )
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API).build();
+
+
+        }
 
         currentButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                if (mGoogleApiClient.isConnected()) {
-                    if (ContextCompat.checkSelfPermission(TestCurrentLocationAPI.this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(TestCurrentLocationAPI.this,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                PERMISSION_REQUEST_CODE);
-                    } else {
-                        callPlaceDetectionApi();
-                    }
-
-                }
-                else {
-                    Log.d(LOG_TAG, "Permission not Granted");
-                }
+                displayLocation();
 
             }
         });
     }
 
+    /**
+     * Method to display the location on UI
+     * */
+    private void displayLocation() {
+
+        if (mGoogleApiClient.isConnected()) {
+            if (ContextCompat.checkSelfPermission(TestCurrentLocationAPI.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(TestCurrentLocationAPI.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSION_REQUEST_CODE);
+            } else {
+                mLastLocation = LocationServices.FusedLocationApi
+                        .getLastLocation(mGoogleApiClient);
+
+                PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace( mGoogleApiClient, null );
+                result.setResultCallback( new ResultCallback<PlaceLikelihoodBuffer>() {
+                    @Override
+                    public void onResult( PlaceLikelihoodBuffer likelyPlaces ) {
+
+                        PlaceLikelihood placeLikelihood = likelyPlaces.get( 0 );
+                        String content = "";
+
+                        if (mLastLocation != null) {
+                            double latitude = mLastLocation.getLatitude();
+                            double longitude = mLastLocation.getLongitude();
+
+                            textView4.setText(latitude + ", " + longitude);
+
+                        } else {
+
+                            textView4.setText("(Couldn't get the location. Make sure location is enabled on the device)");
+                        }
+
+                        if( placeLikelihood != null && placeLikelihood.getPlace() != null && !TextUtils.isEmpty( placeLikelihood.getPlace().getName() ) )
+                            content = "Most likely place: " + placeLikelihood.getPlace().getName() + "\n";
+                        if( placeLikelihood != null )
+                            content += "Percent change of being there: " + (int) ( placeLikelihood.getLikelihood() * 100 ) + "%";
+                        textView5.setText( content );
+
+                        likelyPlaces.release();
+                    }
+                });
+
+            }
+
+        }
+        else {
+            Log.d(LOG_TAG, "Permission not Granted");
+        }
+
+    }
+
+    /**
+     * Method to verify google play services on the device
+     * */
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "This device is not supported.", Toast.LENGTH_LONG)
+                        .show();
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        if( mGoogleApiClient != null )
+        if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onStop() {
-        if( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
-            mGoogleApiClient.disconnect();
-        }
-        super.onStop();
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(LOG_TAG, "Google Places API connection failed with error code: "
-                + connectionResult.getErrorCode());
-
-        Toast.makeText(this,
-                "Google Places API connection failed with error code:" +
-                        connectionResult.getErrorCode(),
-                Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    callPlaceDetectionApi();
-                }
-                break;
         }
     }
 
-    private void callPlaceDetectionApi() {
-        if (ContextCompat.checkSelfPermission(TestCurrentLocationAPI.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace(mGoogleApiClient, null);
-            result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
-                String currentPlace = "fails if this shows";
-                @Override
-                public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
-                    for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                        currentPlace.format("Place '%s' has likelihood: %g",
-                                placeLikelihood.getPlace().getName(),
-                                placeLikelihood.getLikelihood());
-                    }
-                    textView5.setText(currentPlace);
-                    likelyPlaces.release();
-                }
-            });
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkPlayServices();
+    }
+
+    /**
+     * Google api callback methods
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(LOG_TAG, "Connection failed: ConnectionResult.getErrorCode() = "
+                + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+
+        // Once connected with google api, get the location
+        displayLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+        mGoogleApiClient.connect();
     }
 }

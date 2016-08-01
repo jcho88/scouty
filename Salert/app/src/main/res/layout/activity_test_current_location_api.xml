@@ -41,8 +41,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView5"
+        android:id="@+id/textView4"
         android:layout_below="@+id/currentButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="57dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp" />
 
