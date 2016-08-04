@@ -93,32 +93,67 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
                 mLastLocation = LocationServices.FusedLocationApi
                         .getLastLocation(mGoogleApiClient);
 
-                PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace( mGoogleApiClient, null );
-                result.setResultCallback( new ResultCallback<PlaceLikelihoodBuffer>() {
+//                PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace( mGoogleApiClient, null );
+//                result.setResultCallback( new ResultCallback<PlaceLikelihoodBuffer>() {
+//                    @Override
+//                    public void onResult( PlaceLikelihoodBuffer likelyPlaces ) {
+//
+//                        PlaceLikelihood placeLikelihood = likelyPlaces.get( 0 );
+//                        String content = "";
+//
+//                        if (mLastLocation != null) {
+//                            double latitude = mLastLocation.getLatitude();
+//                            double longitude = mLastLocation.getLongitude();
+//
+//                            textView4.setText(latitude + ", " + longitude);
+//
+//                        } else {
+//
+//                            textView4.setText("(Couldn't get the location. Make sure location is enabled on the device)");
+//                        }
+//
+//                        if( placeLikelihood != null && placeLikelihood.getPlace() != null && !TextUtils.isEmpty( placeLikelihood.getPlace().getName() ) )
+//                            content = "Most likely place: " + placeLikelihood.getPlace().getName() + "\n";
+//                        if( placeLikelihood != null )
+//                            content += "Percent change of being there: " + (int) ( placeLikelihood.getLikelihood() * 100 ) + "%";
+//                        textView5.setText( content );
+//
+//                        likelyPlaces.release();
+//                    }
+//                });
+
+                PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
+                        .getCurrentPlace(mGoogleApiClient, null);
+                result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
                     @Override
-                    public void onResult( PlaceLikelihoodBuffer likelyPlaces ) {
-
-                        PlaceLikelihood placeLikelihood = likelyPlaces.get( 0 );
-                        String content = "";
-
-                        if (mLastLocation != null) {
-                            double latitude = mLastLocation.getLatitude();
-                            double longitude = mLastLocation.getLongitude();
-
-                            textView4.setText(latitude + ", " + longitude);
-
-                        } else {
-
-                            textView4.setText("(Couldn't get the location. Make sure location is enabled on the device)");
+                    public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
+                        if(likelyPlaces.getStatus().getStatusMessage() == "ERROR") {
+                            Toast.makeText(TestCurrentLocationAPI.this, "GPS is not enabled", Toast.LENGTH_SHORT).show();
                         }
+                        else {
+                            String content = "";
 
-                        if( placeLikelihood != null && placeLikelihood.getPlace() != null && !TextUtils.isEmpty( placeLikelihood.getPlace().getName() ) )
-                            content = "Most likely place: " + placeLikelihood.getPlace().getName() + "\n";
-                        if( placeLikelihood != null )
-                            content += "Percent change of being there: " + (int) ( placeLikelihood.getLikelihood() * 100 ) + "%";
-                        textView5.setText( content );
+                            if (mLastLocation != null) {
+                                double latitude = mLastLocation.getLatitude();
+                                double longitude = mLastLocation.getLongitude();
 
-                        likelyPlaces.release();
+                                textView4.setText(latitude + ", " + longitude);
+
+                            } else {
+
+                                textView4.setText("(Couldn't get the location. Make sure location is enabled on the device)");
+                            }
+
+                            for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                                content = placeLikelihood.getPlace().getName().toString();
+
+                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",
+                                        placeLikelihood.getPlace().getName(),
+                                        placeLikelihood.getLikelihood()));
+                            }
+                            textView5.setText(content);
+                            likelyPlaces.release();
+                        }
                     }
                 });
 
