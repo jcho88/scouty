@@ -48,7 +48,7 @@
         </activity>
         <activity android:name=".TestAPIActivity" />
         <activity android:name=".TestCurrentLocationAPI" />
-        <activity android:name=".TestGPSActivity"></activity>
+        <activity android:name=".TestGPSActivity" />
     </application>
 
 </manifest>
