@@ -1,6 +1,7 @@
 package com.rektgg.salert;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +24,16 @@ import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
@@ -34,6 +44,7 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
     private static final int PERMISSION_REQUEST_CODE = 100;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private TextView textView4, textView5;
+    private ListView listView1;
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
 
@@ -43,7 +54,7 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
         setContentView(R.layout.activity_test_current_location_api);
         Button currentButton = (Button) findViewById(R.id.currentButton);
         textView4 =(TextView)findViewById(R.id.textView4);
-        textView5 =(TextView)findViewById(R.id.textView5);
+        listView1 = (ListView) findViewById(R.id.listView1);
 
         // First we need to check availability of play services
         if (checkPlayServices()) {
@@ -131,7 +142,7 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
                             Toast.makeText(TestCurrentLocationAPI.this, "GPS is not enabled", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            String content = "";
+                            final ArrayList<String> content = new ArrayList<String>();
 
                             if (mLastLocation != null) {
                                 double latitude = mLastLocation.getLatitude();
@@ -145,13 +156,18 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
                             }
 
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                                content = placeLikelihood.getPlace().getName().toString();
 
-                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",
-                                        placeLikelihood.getPlace().getName(),
-                                        placeLikelihood.getLikelihood()));
+                                if(placeLikelihood.getPlace().getPlaceTypes().toString().contains("79")) {
+                                    content.add(placeLikelihood.getPlace().getName().toString());
+                                }
+
+//                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",
+//                                        placeLikelihood.getPlace().getName(),
+//                                        placeLikelihood.getLikelihood()));
                             }
-                            textView5.setText(content);
+                            final StableArrayAdapter adapter = new StableArrayAdapter(TestCurrentLocationAPI.this,
+                                    android.R.layout.simple_list_item_1, content);
+                            listView1.setAdapter(adapter);
                             likelyPlaces.release();
                         }
                     }
@@ -215,11 +231,39 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
     public void onConnected(Bundle arg0) {
 
         // Once connected with google api, get the location
-        displayLocation();
+//        displayLocation();
     }
 
     @Override
     public void onConnectionSuspended(int arg0) {
         mGoogleApiClient.connect();
+    }
+
+    public class StableArrayAdapter extends ArrayAdapter<String> {
+
+        final int INVALID_ID = -1;
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId, List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+        }
+
+        @Override
+        public long getItemId(int position) {
+            if (position < 0 || position >= mIdMap.size()) {
+                return INVALID_ID;
+            }
+            String item = getItem(position);
+            return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
     }
 }
