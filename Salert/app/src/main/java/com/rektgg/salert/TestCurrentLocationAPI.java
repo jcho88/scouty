@@ -2,6 +2,7 @@ package com.rektgg.salert;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
     private TextView textView4, textView5;
     private ListView listView1;
     private Location mLastLocation;
+    ArrayList<ShopsProfile> shopsProfiles_data = new ArrayList<ShopsProfile>();
     private LocationRequest mLocationRequest;
 
     @Override
@@ -142,7 +144,8 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
                             Toast.makeText(TestCurrentLocationAPI.this, "GPS is not enabled", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            final ArrayList<String> content = new ArrayList<String>();
+
+                            ArrayList<ShopDeals> deals  = new ArrayList<ShopDeals>();
 
                             if (mLastLocation != null) {
                                 double latitude = mLastLocation.getLatitude();
@@ -158,18 +161,26 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
 
                                 if(placeLikelihood.getPlace().getPlaceTypes().toString().contains("79")) {
-                                    content.add(placeLikelihood.getPlace().getName().toString());
+                                    shopsProfiles_data.add(
+                                    new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals,placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
                                 }
 
 //                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",
 //                                        placeLikelihood.getPlace().getName(),
 //                                        placeLikelihood.getLikelihood()));
                             }
-                            final StableArrayAdapter adapter = new StableArrayAdapter(TestCurrentLocationAPI.this,
-                                    android.R.layout.simple_list_item_1, content);
-                            listView1.setAdapter(adapter);
-                            likelyPlaces.release();
+//                            ShopListAdaptor adapter = new ShopListAdaptor(TestCurrentLocationAPI.this,
+//                                    R.layout.listview_shoplist, shopsProfiles_data);
+//
+//                            listView1 = (ListView)findViewById(R.id.lv_shoplist);
+//                            listView1.setAdapter(adapter);
+                            Intent intent = new Intent(TestCurrentLocationAPI.this, ShopListActivity.class);
+                            //intent.putExtra("deals", deals);
+                            intent.putExtra("shopList", shopsProfiles_data);
+                            startActivity(intent);
+
                         }
+
                     }
                 });
 

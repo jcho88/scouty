@@ -1,11 +1,14 @@
 package com.rektgg.salert;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by steve_000 on 5/23/2016.
  */
-public class ShopsProfile {
+public class ShopsProfile implements Serializable{
 
     public String shop_name;
     public String shop_address;

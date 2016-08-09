@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by steve_000 on 5/23/2016.
  */
@@ -15,9 +17,9 @@ public class ShopListAdaptor  extends ArrayAdapter {
 
     Context context;
     int resource;
-    ShopsProfile data[] = null;
+    ArrayList <ShopsProfile> data = null;
 
-    public ShopListAdaptor(Context context, int resource, ShopsProfile[] data) {
+    public ShopListAdaptor(Context context, int resource, ArrayList <ShopsProfile> data) {
 
         super(context, resource, data);
         this.resource = resource;
@@ -49,7 +51,7 @@ public class ShopListAdaptor  extends ArrayAdapter {
             holder = (shopsDetailHolder)row.getTag();
         }
 
-        ShopsProfile shopprofile = data[position];
+        ShopsProfile shopprofile = data.get(position);
         holder.shopname.setText(shopprofile.shop_name);
         holder.numOfShopdeals.setText(Integer.toString(shopprofile.shop_deals.size()));
         holder.shopaddress.setText(shopprofile.shop_address);
