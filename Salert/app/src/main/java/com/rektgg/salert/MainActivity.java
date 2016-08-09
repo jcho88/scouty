@@ -1,5 +1,7 @@
 package com.rektgg.salert;
 
+import android.*;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.location.Location;
@@ -27,6 +30,8 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.support.v4.app.DialogFragment;
 import android.content.pm.PackageManager;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -37,16 +42,23 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.parse.ParseUser;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private static final String LOG_TAG = "MainActivity";
-    private static final int GOOGLE_API_CLIENT_ID = 0;
-    private LocationRequest locRequest;
-    private GoogleApiClient locClient;
     private Location lastLocation;
     private Location currentLocation;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
+    private static final int GOOGLE_API_CLIENT_ID = 0;
     private static final int PERMISSION_REQUEST_CODE = 100;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
+    ArrayList<ShopsProfile> shopsProfiles_data = new ArrayList<ShopsProfile>();
 
 
     @Override
@@ -76,10 +88,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             loginButton.setVisibility(View.GONE);
         }
 
-        locClient = new GoogleApiClient.Builder(MainActivity.this)
-                .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
-                .build();
+        if (checkPlayServices()) {
+
+//            mGoogleApiClient = new GoogleApiClient
+//                    .Builder(this)
+//                    .addApi(Places.GEO_DATA_API)
+//                    .addApi(Places.PLACE_DETECTION_API)
+//                    .enableAutoManage(this, this)
+//                    .build();
+
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage( this, 0, this )
+                    .addApi( Places.GEO_DATA_API )
+                    .addApi( Places.PLACE_DETECTION_API )
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API).build();
+
+
+        }
 
         // Sign up button click handler
 
@@ -101,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         gpsButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if (locClient.isConnected()) {
+                if (mGoogleApiClient.isConnected()) {
                     if (ContextCompat.checkSelfPermission(MainActivity.this,
                             android.Manifest.permission.ACCESS_FINE_LOCATION)
                             != PackageManager.PERMISSION_GRANTED) {
@@ -109,11 +136,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                                 new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                                 PERMISSION_REQUEST_CODE);
                     } else {
-                        callPlaceDetectionApi();
+                        displayLocation();
                     }
 
                 }
-                startActivity(new Intent(MainActivity.this, ShopProfileActivity.class));
+//                startActivity(new Intent(MainActivity.this, ShopProfileActivity.class));
             }
         });
 
@@ -155,52 +182,195 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         return true;
     }
 
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(LOG_TAG, "Google Places API connection failed with error code: "
-                + connectionResult.getErrorCode());
 
-        Toast.makeText(this,
-                "Google Places API connection failed with error code:" +
-                        connectionResult.getErrorCode(),
-                Toast.LENGTH_LONG).show();
+    /**
+     * Method to display the location on UI
+     * */
+    private void displayLocation() {
+
+        if (mGoogleApiClient.isConnected()) {
+            if (ContextCompat.checkSelfPermission(MainActivity.this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSION_REQUEST_CODE);
+            } else {
+                mLastLocation = LocationServices.FusedLocationApi
+                        .getLastLocation(mGoogleApiClient);
+
+//                PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace( mGoogleApiClient, null );
+//                result.setResultCallback( new ResultCallback<PlaceLikelihoodBuffer>() {
+//                    @Override
+//                    public void onResult( PlaceLikelihoodBuffer likelyPlaces ) {
+//
+//                        PlaceLikelihood placeLikelihood = likelyPlaces.get( 0 );
+//                        String content = "";
+//
+//                        if (mLastLocation != null) {
+//                            double latitude = mLastLocation.getLatitude();
+//                            double longitude = mLastLocation.getLongitude();
+//
+//                            textView4.setText(latitude + ", " + longitude);
+//
+//                        } else {
+//
+//                            textView4.setText("(Couldn't get the location. Make sure location is enabled on the device)");
+//                        }
+//
+//                        if( placeLikelihood != null && placeLikelihood.getPlace() != null && !TextUtils.isEmpty( placeLikelihood.getPlace().getName() ) )
+//                            content = "Most likely place: " + placeLikelihood.getPlace().getName() + "\n";
+//                        if( placeLikelihood != null )
+//                            content += "Percent change of being there: " + (int) ( placeLikelihood.getLikelihood() * 100 ) + "%";
+//                        textView5.setText( content );
+//
+//                        likelyPlaces.release();
+//                    }
+//                });
+
+                PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
+                        .getCurrentPlace(mGoogleApiClient, null);
+                result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
+                    @Override
+                    public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
+                        if(likelyPlaces.getStatus().getStatusMessage() == "ERROR") {
+                            Toast.makeText(MainActivity.this, "GPS is not enabled", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+
+                            ArrayList<ShopDeals> deals  = new ArrayList<ShopDeals>();
+
+                            if (mLastLocation != null) {
+                                double latitude = mLastLocation.getLatitude();
+                                double longitude = mLastLocation.getLongitude();
+
+
+                            } else {
+
+                                Toast.makeText(getApplicationContext(),
+                                        "Could not get your location. Please make sure location is enabled on the device", Toast.LENGTH_LONG)
+                                        .show();
+                            }
+
+                            for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+
+                                if(placeLikelihood.getPlace().getPlaceTypes().toString().contains("79")) {
+                                    shopsProfiles_data.add(
+                                            new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals,placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
+                                }
+
+//                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",
+//                                        placeLikelihood.getPlace().getName(),
+//                                        placeLikelihood.getLikelihood()));
+                            }
+//                            ShopListAdaptor adapter = new ShopListAdaptor(TestCurrentLocationAPI.this,
+//                                    R.layout.listview_shoplist, shopsProfiles_data);
+//
+//                            listView1 = (ListView)findViewById(R.id.lv_shoplist);
+//                            listView1.setAdapter(adapter);
+                            Intent intent = new Intent(MainActivity.this, ShopListActivity.class);
+                            //intent.putExtra("deals", deals);
+                            intent.putExtra("shopList", shopsProfiles_data);
+                            startActivity(intent);
+
+                        }
+
+                    }
+                });
+
+            }
+
+        }
+        else {
+            Log.d(LOG_TAG, "Permission not Granted");
+        }
+
+    }
+
+    /**
+     * Method to verify google play services on the device
+     * */
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "This device is not supported.", Toast.LENGTH_LONG)
+                        .show();
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    callPlaceDetectionApi();
-                }
-                break;
+    protected void onStart() {
+        super.onStart();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    private void callPlaceDetectionApi() throws SecurityException {
-        Log.d("tag", "call placedetect");
-        PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
-                .getCurrentPlace(locClient, null);
-        Log.d("result", "RESULT PLACES = " + result);
-        result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
-            @Override
-            public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
-                Log.d("tag", "call onResult");
-                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                    Log.i(LOG_TAG, String.format("Place '%s' with " +
-                                    "likelihood: %g",
-                            placeLikelihood.getPlace().getName(),
-                            placeLikelihood.getLikelihood()));
-                }
-                Log.d("places", "LIKELY PLACES = " + likelyPlaces);
-                likelyPlaces.release();
-            }
-        });
+        checkPlayServices();
     }
 
+    /**
+     * Google api callback methods
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(LOG_TAG, "Connection failed: ConnectionResult.getErrorCode() = "
+                + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+
+        // Once connected with google api, get the location
+//        displayLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+        mGoogleApiClient.connect();
+    }
+
+    public class StableArrayAdapter extends ArrayAdapter<String> {
+
+        final int INVALID_ID = -1;
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId, List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+        }
+
+        @Override
+        public long getItemId(int position) {
+            if (position < 0 || position >= mIdMap.size()) {
+                return INVALID_ID;
+            }
+            String item = getItem(position);
+            return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+    }
 
 /*
  * Show a dialog returned by Google Play services for the connection error code
