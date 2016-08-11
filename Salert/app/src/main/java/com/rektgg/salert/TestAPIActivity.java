@@ -15,9 +15,11 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.SphericalUtil;
 
 import android.*;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -42,7 +44,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_test_api);
 
         if (checkPlayServices()) {
             mGoogleApiClient = new GoogleApiClient
@@ -70,7 +72,6 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
 
     private void getLocation() {
 
-        Log.d("asd", "asd");
         if (mGoogleApiClient.isConnected()) {
             if (ContextCompat.checkSelfPermission(TestAPIActivity.this,
                     android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -79,45 +80,53 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         PERMISSION_REQUEST_CODE);
             } else {
-                mLastLocation = LocationServices.FusedLocationApi
-                        .getLastLocation(mGoogleApiClient);
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-                if (mLastLocation != null) {
+                if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    mLastLocation = LocationServices.FusedLocationApi
+                            .getLastLocation(mGoogleApiClient);
 
-                    Log.d(LOG_TAG, "location check is false");
+                    if (mLastLocation != null) {
 
-                    double latitude = mLastLocation.getLatitude();
-                    double longitude = mLastLocation.getLongitude();
+                        Log.d(LOG_TAG, "location check is false");
 
-                    LatLng centerLocation = new LatLng (latitude, longitude);
+                        double latitude = mLastLocation.getLatitude();
+                        double longitude = mLastLocation.getLongitude();
 
-                    LatLngBounds lastLocation = getLatLngBounds(centerLocation);
+                        LatLng centerLocation = new LatLng(latitude, longitude);
 
-                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                    builder.setLatLngBounds(lastLocation);
-                    try {
-                        startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-                    } catch (GooglePlayServicesRepairableException e) {
-                        e.printStackTrace();
-                    } catch (GooglePlayServicesNotAvailableException e) {
-                        e.printStackTrace();
-                    }
+                        LatLngBounds lastLocation = getLatLngBounds(centerLocation);
 
-                    locationCheck = true;
+                        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                        builder.setLatLngBounds(lastLocation);
+                        try {
+                            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+                        } catch (GooglePlayServicesRepairableException e) {
+                            e.printStackTrace();
+                        } catch (GooglePlayServicesNotAvailableException e) {
+                            e.printStackTrace();
+                        }
 
-                } else if (locationCheck) {
-                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                    try {
-                        startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-                    } catch (GooglePlayServicesRepairableException e) {
-                        e.printStackTrace();
-                    } catch (GooglePlayServicesNotAvailableException e) {
-                        e.printStackTrace();
+                        locationCheck = true;
+
+                    } else if (locationCheck){
+                        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                        try {
+                            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+                        } catch (GooglePlayServicesRepairableException e) {
+                            e.printStackTrace();
+                        } catch (GooglePlayServicesNotAvailableException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Please enable GPS on the device", Toast.LENGTH_LONG).show();
                     }
                 } else {
 
                     Toast.makeText(getApplicationContext(),
-                            "Couldn't get the location. Please enable location on the device", Toast.LENGTH_LONG).show();
+                            "Could not get your location. Please enable location on the device", Toast.LENGTH_LONG).show();
+
                 }
             }
         }
