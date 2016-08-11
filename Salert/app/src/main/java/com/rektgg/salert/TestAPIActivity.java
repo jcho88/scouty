@@ -37,6 +37,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private Location mLastLocation;
     private String toastMsg;
+    private boolean locationCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
         }
     }
 
-    private void displayLocation() {
+    private void getLocation() {
         Log.d("asd", "asd");
         if (mGoogleApiClient.isConnected()) {
             if (ContextCompat.checkSelfPermission(TestAPIActivity.this,
@@ -81,6 +82,9 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                         .getLastLocation(mGoogleApiClient);
 
                 if (mLastLocation != null) {
+
+                    Log.d(LOG_TAG, "location check is false");
+
                     double latitude = mLastLocation.getLatitude();
                     double longitude = mLastLocation.getLongitude();
 
@@ -98,6 +102,17 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                         e.printStackTrace();
                     }
 
+                    locationCheck = true;
+
+                } else if (locationCheck) {
+                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                    try {
+                        startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+                    } catch (GooglePlayServicesRepairableException e) {
+                        e.printStackTrace();
+                    } catch (GooglePlayServicesNotAvailableException e) {
+                        e.printStackTrace();
+                    }
                 } else {
 
                     Toast.makeText(getApplicationContext(),
@@ -162,7 +177,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         PERMISSION_REQUEST_CODE);
             } else {
-                displayLocation();
+                getLocation();
             }
 
         }
