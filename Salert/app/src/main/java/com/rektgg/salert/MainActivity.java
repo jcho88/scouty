@@ -15,6 +15,7 @@ import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -254,9 +255,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
 
-                                if(placeLikelihood.getPlace().getPlaceTypes().toString().contains("79")) {
+                                if( placeLikelihood != null && placeLikelihood.getPlace() != null && !TextUtils.isEmpty( placeLikelihood.getPlace().getName() ) ) {
+//                                if(placeLikelihood.getPlace().getPlaceTypes().toString().contains("79")) {
+                                    Log.d("LOG_TAG", placeLikelihood.getPlace().getName().toString());
                                     shopsProfiles_data.add(
-                                            new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals,placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
+                                            new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals, placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
+//                                }
                                 }
 
 //                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",
@@ -268,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //
 //                            listView1 = (ListView)findViewById(R.id.lv_shoplist);
 //                            listView1.setAdapter(adapter);
+                            likelyPlaces.release();
                             Intent intent = new Intent(MainActivity.this, ShopListActivity.class);
                             //intent.putExtra("deals", deals);
                             intent.putExtra("shopList", shopsProfiles_data);
