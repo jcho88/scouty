@@ -69,6 +69,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     private void getLocation() {
+
         Log.d("asd", "asd");
         if (mGoogleApiClient.isConnected()) {
             if (ContextCompat.checkSelfPermission(TestAPIActivity.this,
