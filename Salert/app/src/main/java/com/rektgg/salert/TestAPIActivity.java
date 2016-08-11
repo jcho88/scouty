@@ -24,7 +24,7 @@ public class TestAPIActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_api);
+        setContentView(R.layout.activity_main);
 
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
