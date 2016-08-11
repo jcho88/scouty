@@ -38,24 +38,24 @@ import java.util.Set;
 
 public class ShopListActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
 
-    GoogleApiClient.OnConnectionFailedListener {
-        private static final String LOG_TAG = "PlacesAPIActivity";
-        private static final int GOOGLE_API_CLIENT_ID = 0;
-        private GoogleApiClient mGoogleApiClient;
-        private static final int PERMISSION_REQUEST_CODE = 100;
-        private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-        private ListView listView;
-        private Location mLastLocation;
-        ArrayList<ShopsProfile> shopsProfiles_data = new ArrayList<ShopsProfile>();
-        private LocationRequest mLocationRequest;
+        GoogleApiClient.OnConnectionFailedListener {
+    private static final String LOG_TAG = "PlacesAPIActivity";
+    private static final int GOOGLE_API_CLIENT_ID = 0;
+    private GoogleApiClient mGoogleApiClient;
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
+    private ListView listView;
+    private Location mLastLocation;
+    ArrayList<ShopsProfile> shopsProfiles_data = new ArrayList<ShopsProfile>();
+    private LocationRequest mLocationRequest;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_shop_list);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shop_list);
 
-            // First we need to check availability of play services
-            if (checkPlayServices()) {
+        // First we need to check availability of play services
+        if (checkPlayServices()) {
 //            mGoogleApiClient = new GoogleApiClient
 //                    .Builder(this)
 //                    .addApi(Places.GEO_DATA_API)
@@ -63,24 +63,24 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 //                    .enableAutoManage(this, this)
 //                    .build();
 
-                mGoogleApiClient = new GoogleApiClient.Builder(this)
-                        .enableAutoManage( this, 0, this )
-                        .addApi( Places.GEO_DATA_API )
-                        .addApi( Places.PLACE_DETECTION_API )
-                        .addConnectionCallbacks(this)
-                        .addOnConnectionFailedListener(this)
-                        .addApi(LocationServices.API).build();
-
-
-            }
-
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage( this, 0, this )
+                    .addApi( Places.GEO_DATA_API )
+                    .addApi( Places.PLACE_DETECTION_API )
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API).build();
 
 
         }
 
-        /**
-         * Method to display the location on UI
-         * */
+
+
+    }
+
+    /**
+     * Method to display the location on UI
+     * */
     private void displayLocation() {
         Log.d("asd","asd");
         if (mGoogleApiClient.isConnected()) {
@@ -138,8 +138,8 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
 
 //                                if(placeLikelihood.getPlace().getPlaceTypes().toString().contains("79")) {
-                                    shopsProfiles_data.add(
-                                            new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals,placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
+                                shopsProfiles_data.add(
+                                        new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals,placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
 //                                }
 
 //                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",

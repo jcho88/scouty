@@ -6,7 +6,6 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
@@ -52,7 +51,8 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                     .addApi( Places.PLACE_DETECTION_API )
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API).build();
+                    .addApi(LocationServices.API)
+                    .build();
         }
 
     }
@@ -90,7 +90,6 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
 
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                     builder.setLatLngBounds(lastLocation);
-
                     try {
                         startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
                     } catch (GooglePlayServicesRepairableException e) {
