@@ -60,9 +60,15 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
 
     }
 
+    //After PlacePicker Intent begin called (startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST))
+    //This will method will start.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
+
+                //TODO
+                //search database with storeID and display the result in ShopProfileActivity
+
                 Place place = PlacePicker.getPlace(data, this);
                 toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
