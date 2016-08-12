@@ -125,10 +125,13 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                             e.printStackTrace();
                         }
                     } else {
+                        Log.d(LOG_TAG, "GPS not enabled");
+
                         Toast.makeText(getApplicationContext(),
                                 "Please enable GPS on the device", Toast.LENGTH_LONG).show();
                     }
                 } else {
+                    Log.d(LOG_TAG, "Location not enabled");
 
                     Toast.makeText(getApplicationContext(),
                             "Could not get your location. Please enable location on the device", Toast.LENGTH_LONG).show();
@@ -139,9 +142,9 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     public static LatLngBounds getLatLngBounds(LatLng center) {
-        double radius = 100;
-        LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 225);
-        LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 45);
+        double radius = 150;
+        LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(4.0), 225);
+        LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(4.0), 45);
         return new LatLngBounds(southwest, northeast);
     }
 
