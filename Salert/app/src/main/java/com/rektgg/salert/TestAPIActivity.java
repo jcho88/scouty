@@ -160,6 +160,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
         return true;
     }
 
+    //For GooglePlay Services, When the app start connect user
     @Override
     protected void onStart() {
         super.onStart();
@@ -175,6 +176,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
         checkPlayServices();
     }
 
+    //For GooglePlay Services, After being connected.
     @Override
     public void onConnected(Bundle arg0) {
 
@@ -201,6 +203,34 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d("connetion", "Failed");
+    }
+
+    //If Determine the result of user's permission in onConnection(). If User
+    // Allow us to use location, we display the location. If not. We Toast them
+    // to allow us to use thier location
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    getLocation();
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(),
+                            "Please Allow us to use your Location", Toast.LENGTH_LONG)
+                            .show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
 
