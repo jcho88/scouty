@@ -95,13 +95,13 @@ public class Application extends android.app.Application{
 
     }
 
-    public static float getSearchDistance() {
-        return preferences.getFloat(KEY_SEARCH_DISTANCE, DEFAULT_SEARCH_DISTANCE);
-    }
-
-    public static void setSearchDistance(float value) {
-        preferences.edit().putFloat(KEY_SEARCH_DISTANCE, value).commit();
-    }
+//    public static float getSearchDistance() {
+//        return preferences.getFloat(KEY_SEARCH_DISTANCE, DEFAULT_SEARCH_DISTANCE);
+//    }
+//
+//    public static void setSearchDistance(float value) {
+//        preferences.edit().putFloat(KEY_SEARCH_DISTANCE, value).commit();
+//    }
 
     public static ConfigHelper getConfigHelper() {
         return configHelper;

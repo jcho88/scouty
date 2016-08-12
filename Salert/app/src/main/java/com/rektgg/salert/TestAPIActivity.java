@@ -69,7 +69,7 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                 //TODO
                 //search database with storeID and display the result in ShopProfileActivity
 
-                Place place = PlacePicker.getPlace(data, this);
+                Place place = PlacePicker.getPlace(this, data);
                 toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
@@ -115,15 +115,15 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
 
                         locationCheck = true;
 
-                    } else if (locationCheck){
-                        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                        try {
-                            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-                        } catch (GooglePlayServicesRepairableException e) {
-                            e.printStackTrace();
-                        } catch (GooglePlayServicesNotAvailableException e) {
-                            e.printStackTrace();
-                        }
+//                    } else if (locationCheck){
+//                        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//                        try {
+//                            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+//                        } catch (GooglePlayServicesRepairableException e) {
+//                            e.printStackTrace();
+//                        } catch (GooglePlayServicesNotAvailableException e) {
+//                            e.printStackTrace();
+//                        }
                     } else {
                         Log.d(LOG_TAG, "GPS not enabled");
 
@@ -142,9 +142,9 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
     }
 
     public static LatLngBounds getLatLngBounds(LatLng center) {
-        double radius = 150;
-        LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(4.0), 225);
-        LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(4.0), 45);
+        double radius = 100;
+        LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 225);
+        LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 45);
         return new LatLngBounds(southwest, northeast);
     }
 
