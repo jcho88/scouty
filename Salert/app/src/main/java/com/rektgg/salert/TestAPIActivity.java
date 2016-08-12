@@ -70,7 +70,8 @@ public class TestAPIActivity extends AppCompatActivity implements GoogleApiClien
                 //search database with storeID and display the result in ShopProfileActivity
 
                 Place place = PlacePicker.getPlace(this, data);
-                toastMsg = String.format("Place: %s", place.getName());
+//                toastMsg = String.format("Place: %s", place.getName());
+                toastMsg = String.format("Checking deals at %s", place.getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
         }
