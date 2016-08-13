@@ -351,10 +351,17 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
                 Log.d(LOG_TAG, "GOES IN ACTIVITY RESULT");
 
-                final ProgressDialog dialog = new ProgressDialog(ShopListActivity.this);
-                dialog.setMessage(String.format("Getting Deals at %s", place.getName()));
-                dialog.show();
+                //final ProgressDialog dialog = new ProgressDialog(ShopListActivity.this);
+                //dialog.setMessage(String.format("Getting Deals at %s", place.getName()));
+                //dialog.show();
                 getDeals();
+
+
+                //finish();
+            }else if(resultCode == RESULT_CANCELED){
+                Log.d(LOG_TAG, "Result Canceled");
+                finish();
+
             }
         }
     }
