@@ -340,7 +340,7 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     //This will method will start.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) { //when a user hit on a location in Place Picker
 
                 //TODO
                 //search database with storeID and display the result in ShopProfileActivity
@@ -358,7 +358,7 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
 
                 //finish();
-            }else if(resultCode == RESULT_CANCELED){
+            }else if(resultCode == RESULT_CANCELED){ //when a user hit back button
                 Log.d(LOG_TAG, "Result Canceled");
                 finish();
 

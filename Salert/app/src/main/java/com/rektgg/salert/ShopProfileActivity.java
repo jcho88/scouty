@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -27,6 +29,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     private TextView shopAddress;
     private TextView shopDistanceFromUser;
     private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
+    private static final String LOG_TAG = "ShopProfileActivity";
     String userName;
     String userPost;
     DealPost post = new DealPost();
@@ -104,6 +107,14 @@ public class ShopProfileActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_CANCELED){ //when a user hit back button
+                Log.d(LOG_TAG, "Result Canceled");
+                finish();
+        }
     }
 
 }
