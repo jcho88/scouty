@@ -174,10 +174,10 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
 //
 //                            listView1 = (ListView)findViewById(R.id.lv_shoplist);
 //                            listView1.setAdapter(adapter);
-                            Intent intent = new Intent(TestCurrentLocationAPI.this, ShopListActivity.class);
+//                            Intent intent = new Intent(TestCurrentLocationAPI.this, ShopListActivity.class);
                             //intent.putExtra("deals", deals);
-                            intent.putExtra("shopList", shopsProfiles_data);
-                            startActivity(intent);
+//                            intent.putExtra("shopList", shopsProfiles_data);
+//                            startActivity(intent);
 
                         }
 

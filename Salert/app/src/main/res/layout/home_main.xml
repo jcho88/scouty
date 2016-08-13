@@ -12,40 +12,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/header">
+        android:id="@+id/header"
+        android:background="#FAFAFA">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:weightSum="1">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/app_name"
-                android:id="@+id/textView" />
+            <ImageView
+                android:layout_width="271dp"
+                android:layout_height="103dp"
+                android:src="@drawable/temp_logo"
+                android:id="@+id/imageView" />
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:text="@string/app_name"-->
+                <!--android:id="@+id/textView" />-->
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/search"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="10dp">
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/search"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:paddingTop="10dp">-->
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:gravity="center_vertical|center"
-            android:baselineAligned="false">
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="5dp"-->
+            <!--android:gravity="center_vertical|center"-->
+            <!--android:baselineAligned="false">-->
 
             <!--<EditText-->
                 <!--android:layout_width="wrap_content"-->
@@ -59,16 +67,15 @@
                 <!--android:id="@+id/search_button"-->
                 <!--android:src="@android:drawable/ic_menu_search"-->
                 <!--android:background="#00000000" />-->
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/gps"
-        android:paddingTop="40dp">
+        android:id="@+id/gps">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,11 +90,12 @@
                 android:layout_weight="1">
 
                 <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="226dp"
+                    android:layout_height="244dp"
                     android:id="@+id/gps_button"
-                    android:src="@drawable/home_gps_temp"
-                    android:background="#00000000" />
+                    android:src="@drawable/temp_gps_button"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter" />
             </LinearLayout>
 
         </LinearLayout>
@@ -95,14 +103,16 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:paddingBottom="5px">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Find Deals Near You"
+                android:textStyle="bold"
                 android:id="@+id/textView2" />
         </LinearLayout>
     </LinearLayout>
@@ -110,7 +120,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Button
             android:layout_width="wrap_content"
@@ -135,5 +145,22 @@
             <!--android:layout_weight="1"-->
             <!--android:layout_gravity="center_vertical" />-->
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/borders"
+            android:text="Rekt LLC"
+            android:id="@+id/textView"
+            android:gravity="center_vertical|center_horizontal" />
+    </LinearLayout>
+
 
 </LinearLayout>
