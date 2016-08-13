@@ -355,7 +355,6 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
                 dialog.setMessage(String.format("Getting Deals at %s", place.getName()));
                 dialog.show();
                 getDeals();
-
             }
         }
     }
