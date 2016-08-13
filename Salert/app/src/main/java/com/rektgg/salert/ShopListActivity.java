@@ -288,6 +288,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.SphericalUtil;
 
 import android.*;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -300,6 +301,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 public class ShopListActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
@@ -344,13 +347,22 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
                 Place place = PlacePicker.getPlace(this, data);
 //                toastMsg = String.format("Place: %s", place.getName());
-                toastMsg = String.format("Checking deals at %s", place.getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+
+                Log.d(LOG_TAG, "GOES IN ACTIVITY RESULT");
+
+                final ProgressDialog dialog = new ProgressDialog(ShopListActivity.this);
+                dialog.setMessage(String.format("Getting Deals at %s", place.getName()));
+                dialog.show();
+                getDeals();
+
             }
         }
     }
 
     private void getLocation() {
+
+        Log.d(LOG_TAG, "GOES IN GET LOCATION");
 
         if (mGoogleApiClient.isConnected()) {
             if (ContextCompat.checkSelfPermission(ShopListActivity.this,
@@ -388,16 +400,16 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
                         }
 
                         locationCheck = true;
-                        finish();
-//                    } else if (locationCheck){
-//                        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-//                        try {
-//                            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-//                        } catch (GooglePlayServicesRepairableException e) {
-//                            e.printStackTrace();
-//                        } catch (GooglePlayServicesNotAvailableException e) {
-//                            e.printStackTrace();
-//                        }
+
+                    } else if (locationCheck){
+                        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                        try {
+                            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+                        } catch (GooglePlayServicesRepairableException e) {
+                            e.printStackTrace();
+                        } catch (GooglePlayServicesNotAvailableException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         Log.d(LOG_TAG, "GPS not enabled");
                         Toast.makeText(getApplicationContext(),
@@ -420,6 +432,11 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
         LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 225);
         LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 45);
         return new LatLngBounds(southwest, northeast);
+    }
+
+    public void getDeals(){
+        Intent intent = new Intent(this, ShopProfileActivity.class);
+        this.startActivity(intent);
     }
 
     /**
@@ -458,6 +475,16 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
         checkPlayServices();
     }
 
+//    @Override
+//    protected void onPause(){
+//        super.onPause();
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//    }
+
     //For GooglePlay Services, After being connected.
     @Override
     public void onConnected(Bundle arg0) {
@@ -479,12 +506,13 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
     @Override
     public void onConnectionSuspended(int arg0) {
-        mGoogleApiClient.connect();
+//        mGoogleApiClient.connect();
+        Log.d("connetion", "Connection interrupted");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d("connetion", "Failed");
+        Log.d("connetion", "Connection failed");
     }
 
     //If Determine the result of user's permission in onConnection(). If User
@@ -514,8 +542,6 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
             // permissions this app might request
         }
     }
-
-
 
     // TODO: Please implement GoogleApiClient.OnConnectionFailedListener to
     // handle connection failures.

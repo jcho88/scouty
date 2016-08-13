@@ -41,6 +41,9 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopAddress = (TextView)findViewById(R.id.tv_shopAddress);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
 
+        // TODO get intent retrieves data passed
+        Intent intent = getIntent();
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
         query.include("user");
 
@@ -100,7 +103,7 @@ public class ShopProfileActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+    }
 
 }
