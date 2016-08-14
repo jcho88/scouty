@@ -300,6 +300,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.FloatMath;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -315,6 +316,8 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private Location mLastLocation;
     private String toastMsg;
+    double latitude;
+    double longitude;
     private boolean locationCheck = false;
     double longitude, latitude;
 
@@ -344,19 +347,25 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) { //when a user hit on a location in Place Picker
 
-                //TODO
-                //search database with storeID and display the result in ShopProfileActivity
-
                 Place place = PlacePicker.getPlace(this, data);
 //                toastMsg = String.format("Place: %s", place.getName());
 //                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
 
                 Log.d(LOG_TAG, "GOES IN ACTIVITY RESULT");
 
-                //final ProgressDialog dialog = new ProgressDialog(ShopListActivity.this);
-                //dialog.setMessage(String.format("Getting Deals at %s", place.getName()));
-                //dialog.show();
-                getDeals();
+
+                //distance between user and the location user selected in meters
+                double result = getDistance(latitude, longitude, place.getLatLng().latitude, place.getLatLng().longitude);
+                double reult_miles = getMiles(result);
+
+                Log.d("Asdsa %f", String.valueOf(Math.round(reult_miles*100.0)/100.0));
+                Intent Intent_shopProfile = new Intent(this, ShopProfileActivity.class);
+                Intent_shopProfile.putExtra("name",place.getName().toString());
+                Intent_shopProfile.putExtra("address",place.getAddress().toString());
+                Intent_shopProfile.putExtra("storeID",place.getId().toString());
+                Intent_shopProfile.putExtra("phone",place.getPhoneNumber().toString());
+                Intent_shopProfile.putExtra("distance",Math.round(reult_miles*100.0)/100.0);
+                this.startActivity(Intent_shopProfile);
 
 
                 //finish();
@@ -441,10 +450,7 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
         return new LatLngBounds(southwest, northeast);
     }
 
-    public void getDeals(){
-        Intent intent = new Intent(this, ShopProfileActivity.class);
-        this.startActivity(intent);
-    }
+
 
     /**
      * Method to verify google play services on the device
@@ -554,4 +560,20 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
     // TODO: Please implement GoogleApiClient.OnConnectionFailedListener to
     // handle connection failures.
+
+    /**
+     * Distance between location
+     * using WSG84
+     * using the Metric system (meters)
+     */
+    public static float getDistance(double startLati, double startLongi, double goalLati, double goalLongi){
+        float[] resultArray = new float[99];
+        Location.distanceBetween(startLati, startLongi, goalLati, goalLongi, resultArray);
+        return resultArray[0];
+    }
+
+    public static double getMiles(double meters) {
+        return meters*0.000621371192;
+    }
 }
+

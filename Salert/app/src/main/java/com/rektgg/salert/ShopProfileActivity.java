@@ -27,13 +27,18 @@ import java.util.List;
 public class ShopProfileActivity extends AppCompatActivity {
     private ListView listView1;
     private TextView shopAddress;
+    private TextView shopeTel;
+    private TextView shopeName;
     private TextView shopDistanceFromUser;
     private ArrayList<ShopDeals> shopdeals_data = new ArrayList<ShopDeals>();
     private static final String LOG_TAG = "ShopProfileActivity";
     String userName;
     String userPost;
+    String storeID;
     DealPost post = new DealPost();
     private ParseQuery<DealPost> postQuery;
+
+
 //    final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
 
     @Override
@@ -42,13 +47,17 @@ public class ShopProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_profile);
         shopAddress = (TextView)findViewById(R.id.tv_shopAddress);
+        shopeName = (TextView)findViewById(R.id.tv_shopName);
+        shopeTel = (TextView)findViewById(R.id.tv_shopPhone);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
-
-        // TODO get intent retrieves data passed
-        Intent intent = getIntent();
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
         query.include("user");
+
+        //show dialog for querying until callback is done
+        final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
+        dialog.setMessage(String.format("Getting Deals"));
+        dialog.show();
 
         query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -66,20 +75,33 @@ public class ShopProfileActivity extends AppCompatActivity {
                         ParseUser theUser = object.getParseUser("user");
                         userName = theUser.getUsername();
                         userPost = object.getString("text");
+                        storeID = object.getString("store_id");
 
 //                        Log.d("doom", userPost);
-                        shopdeals_data.add(new ShopDeals(userName, userPost));
+                        shopdeals_data.add(new ShopDeals(userName, userPost, storeID));
 
                         //setting up Array adapter with class ShopDealsAdaptor
                         ShopDealsAdaptor adapter = new ShopDealsAdaptor(ShopProfileActivity.this,
                                 R.layout.listview_shopdeals, shopdeals_data);
                         //setting up shops profile
-                        shopDistanceFromUser.setText("10" + " miles");
-                        shopAddress.setText("123456 Dino road Apt 123, Lake sideDino, California 12345");
+
+
+                        /*******Variables passed via Intent are:
+                        name
+                        storeID
+                        address
+                        phone
+                        ********/
+                        Intent shop_list_data = getIntent();
+                        shopeName.setText(shop_list_data.getStringExtra("name"));
+                        shopDistanceFromUser.setText(Double.toString(shop_list_data.getDoubleExtra("distance", 0)) + " miles");
+                        shopAddress.setText(shop_list_data.getStringExtra("address"));
+                        shopeTel.setText(shop_list_data.getStringExtra("phone"));
 
                         //setting up list view
                         listView1 = (ListView)findViewById(R.id.lv_deals);
                         listView1.setAdapter(adapter);
+                        dialog.dismiss();
 //                        Log.d("doom", userName);
 //                        Log.d("doom", userPost);
                         //                        currentUser = object.getParseObject("_p_user");

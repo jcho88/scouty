@@ -6,15 +6,17 @@ package com.rektgg.salert;
 public class ShopDeals {
 
     public String username;
+    public String storeID;
     public String dealDetails;
 
     public ShopDeals(){
         super();
     }
 
-    public ShopDeals(String userName, String shopDeals) {
+    public ShopDeals(String userName, String shopDeals, String storeID) {
         super();
         this.username = userName;
+        this.storeID = storeID;
         this.dealDetails = shopDeals;
     }
 }
