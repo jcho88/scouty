@@ -38,6 +38,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     DealPost post = new DealPost();
     private ParseQuery<DealPost> postQuery;
     Intent shop_list_data;
+    Intent Intent_dealPost;
 
 
 //    final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
@@ -76,6 +77,7 @@ public class ShopProfileActivity extends AppCompatActivity {
 //                        Log.d("PO", object.getString("text"));
 
                         temp.setUser(object.getParseUser("user"));
+                        temp.setText(object.getString("text"));
                         userName = temp.getUser().getUsername();
                         userPost = object.getString(temp.getText());
                         storeID = temp.getStoreId();
@@ -127,7 +129,9 @@ public class ShopProfileActivity extends AppCompatActivity {
         postDealButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent for the sign up activity
-                startActivity(new Intent(ShopProfileActivity.this, PostActivity.class));
+                Intent_dealPost = new Intent(ShopProfileActivity.this, PostActivity.class);
+                Intent_dealPost.putExtra("storeID","temp");
+                startActivity(Intent_dealPost);
             }
         });
 
