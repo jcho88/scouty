@@ -28,6 +28,14 @@ public class DealPost extends ParseObject {
         put("user", value);
     }
 
+    public String getStoreId(){
+        return getString("store_id");
+    }
+
+    public void setStoreId(String value){
+        put("store_id", value);
+    }
+
     public static ParseQuery<DealPost> getQuery() {
         return ParseQuery.getQuery(DealPost.class);
     }

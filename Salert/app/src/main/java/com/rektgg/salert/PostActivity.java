@@ -77,6 +77,7 @@ public class PostActivity extends AppCompatActivity {
 
         post.setText(text);
         post.setUser(ParseUser.getCurrentUser());
+        //post.setStoreId()
         ParseACL acl = new ParseACL();
 
         // Give public read access

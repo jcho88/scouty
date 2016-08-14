@@ -37,6 +37,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     String storeID;
     DealPost post = new DealPost();
     private ParseQuery<DealPost> postQuery;
+    Intent shop_list_data;
 
 
 //    final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
@@ -50,7 +51,6 @@ public class ShopProfileActivity extends AppCompatActivity {
         shopeName = (TextView)findViewById(R.id.tv_shopName);
         shopeTel = (TextView)findViewById(R.id.tv_shopPhone);
         shopDistanceFromUser = (TextView)findViewById(R.id.tv_distanceFromUser);
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("DealPost");
         query.include("user");
 
@@ -58,6 +58,7 @@ public class ShopProfileActivity extends AppCompatActivity {
         final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
         dialog.setMessage(String.format("Getting Deals"));
         dialog.show();
+
 
         query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -69,13 +70,15 @@ public class ShopProfileActivity extends AppCompatActivity {
                 if (e == null) {
 
                     for (ParseObject object : objectList) {
+
+                        DealPost temp = new DealPost();
                         //dialog.dismiss();
 //                        Log.d("PO", object.getString("text"));
 
-                        ParseUser theUser = object.getParseUser("user");
-                        userName = theUser.getUsername();
-                        userPost = object.getString("text");
-                        storeID = object.getString("store_id");
+                        temp.setUser(object.getParseUser("user"));
+                        userName = temp.getUser().getUsername();
+                        userPost = temp.getText();
+                        storeID = temp.getStoreId();
 
 //                        Log.d("doom", userPost);
                         shopdeals_data.add(new ShopDeals(userName, userPost, storeID));
@@ -92,7 +95,7 @@ public class ShopProfileActivity extends AppCompatActivity {
                         address
                         phone
                         ********/
-                        Intent shop_list_data = getIntent();
+                        shop_list_data = getIntent();
                         shopeName.setText(shop_list_data.getStringExtra("name"));
                         shopDistanceFromUser.setText(Double.toString(shop_list_data.getDoubleExtra("distance", 0)) + " miles");
                         shopAddress.setText(shop_list_data.getStringExtra("address"));
