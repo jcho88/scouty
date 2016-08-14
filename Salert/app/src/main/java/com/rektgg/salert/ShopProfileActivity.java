@@ -194,13 +194,12 @@ public class ShopProfileActivity extends AppCompatActivity {
                         }
 
                         temp.setText(object.getString("text"));
-<<<<<<< HEAD
+
 
                         userPost = temp.getText();
-=======
+
                         userName = temp.getUser().getUsername();
                         userPost = object.getString(temp.getText());
->>>>>>> 9ee5ab2fe344fa9a33bd5a04306b379b207180ad
                         storeID = temp.getStoreId();
 
 
