@@ -315,14 +315,18 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     private static final int PERMISSION_REQUEST_CODE = 100;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private Location mLastLocation;
-    private String toastMsg;
     private boolean locationCheck = false;
     double longitude, latitude;
+
     Intent Intent_shopProfile;
+
+    private int onResumeFlag = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "oncreate");
         setContentView(R.layout.activity_shop_list);
 
         if (checkPlayServices()) {
@@ -367,6 +371,10 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
                 Intent_shopProfile.putExtra("distance",Math.round(reult_miles*100.0)/100.0);
                 this.startActivity(Intent_shopProfile);
 
+
+
+
+                //finish();
 
             }else if(resultCode == RESULT_CANCELED){ //when a user hit back button
                 Log.d(LOG_TAG, "Result Canceled");
@@ -474,6 +482,7 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     //For GooglePlay Services, When the app start connect user
     @Override
     protected void onStart() {
+        Log.d(LOG_TAG, "on start");
         super.onStart();
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
@@ -483,24 +492,39 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     @Override
     protected void onResume() {
         super.onResume();
-
-        checkPlayServices();
+        Log.d(LOG_TAG, "on Resume");
+        onResumeFlag = 0;
+//        checkPlayServices();
 
     }
+
 
     @Override
     protected void onPause(){
+        Log.d(LOG_TAG, "on Pause");
         super.onPause();
+
     }
+
+
 
     @Override
     protected void onStop() {
         super.onStop();
+
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
+
+        Log.d(LOG_TAG, "on stop");
+        onResumeFlag = 1;
+//        checkPlayServices();
+//        mGoogleApiClient.disconnect();
+//        finish();
+
+
     }
 
     //For GooglePlay Services, After being connected.
@@ -515,7 +539,9 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
                 ActivityCompat.requestPermissions(ShopListActivity.this,
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         PERMISSION_REQUEST_CODE);
-            } else {
+            } else if(onResumeFlag == 0) {
+                Log.d(LOG_TAG, Integer.toString(onResumeFlag));
+
                 getLocation();
             }
 
