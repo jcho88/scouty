@@ -77,7 +77,7 @@ public class ShopProfileActivity extends AppCompatActivity {
 
                         temp.setUser(object.getParseUser("user"));
                         userName = temp.getUser().getUsername();
-                        userPost = temp.getText();
+                        userPost = object.getString(temp.getText());
                         storeID = temp.getStoreId();
 
 //                        Log.d("doom", userPost);
