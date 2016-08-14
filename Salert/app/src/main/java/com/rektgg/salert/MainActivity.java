@@ -136,6 +136,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        menu.findItem(R.id.action_about).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                return true;
+            }
+        });
+
         return true;
     }
 
