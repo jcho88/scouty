@@ -24,40 +24,66 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about_motto"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/tv_motto"
         android:gravity="center_horizontal"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about"
-        android:layout_marginTop="37dp"
         android:layout_below="@+id/tv_motto"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/tv_description"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/about_future"
+        android:layout_below="@+id/tv_description"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:id="@+id/textView0" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/about_feature_1"
+        android:layout_below="@+id/textView0"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textView1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/about_feature_2"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="5dp"
+        android:id="@+id/textView2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/about_feature_3"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="5dp"
+        android:id="@+id/textView3" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/about_feature_4"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="8dp"
+        android:id="@+id/textView4" />
 
     <TextView
         android:id="@+id/description_textview"

@@ -19,4 +19,9 @@
     <string name="btn_stop_location_updates">STOP LOCATION UPDATES</string>
     <string name="about_motto">Share and discover deals with Scouty!</string>
     <string name="about">These deals not only help you but also help promote local businesses around you!</string>
+    <string name="about_future">Things to expect in 2.0:</string>
+    <string name="about_feature_1">- Filter types of businesses</string>
+    <string name="about_feature_2">- Individual profile page and reward system</string>
+    <string name="about_feature_3">- Increased search radius (not limited to current location)</string>
+    <string name="about_feature_4">- More descriptive details for deals along with the number of deals displayed</string>
 </resources>
