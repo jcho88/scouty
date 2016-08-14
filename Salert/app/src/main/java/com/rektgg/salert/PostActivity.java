@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -22,6 +26,7 @@ public class PostActivity extends AppCompatActivity {
     private Button submitButton;
     private EditText postEditText;
     private TextView characterCounterTextView;
+    Intent shop_profile_data;
 
 
     private int maxCharacterCount = Application.getConfigHelper().getPostMaxCharacterCount();
@@ -77,8 +82,15 @@ public class PostActivity extends AppCompatActivity {
         DealPost post = new DealPost();
 
         post.setText(text);
-        post.setUser(ParseUser.getCurrentUser());
-        //post.setStoreId()
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser != null) {
+            post.put("userID", ParseUser.getCurrentUser().getObjectId());
+            post.setUser(ParseUser.getCurrentUser());
+        }else{
+            post.put("userID", "-1");
+        }
+        shop_profile_data = getIntent();
+        post.setStoreId(shop_profile_data.getStringExtra("storeID"));
         ParseACL acl = new ParseACL();
 
         // Give public read access
@@ -92,10 +104,13 @@ public class PostActivity extends AppCompatActivity {
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
+                Log.d("in done", String.valueOf(e));
                 dialog.dismiss();
                 finish();
-                Intent intent = new Intent(PostActivity.this, ShopProfileActivity.class);
-                startActivity(intent);
+                //TODO
+                //Not efficient way to exit
+//                Intent intent = new Intent(PostActivity.this, ShopProfileActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -115,4 +130,18 @@ public class PostActivity extends AppCompatActivity {
         String characterCountString = String.format("%d/%d", postEditText.length(), maxCharacterCount);
         characterCounterTextView.setText(characterCountString);
     }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                this.finish();
+                return (true);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
 }
