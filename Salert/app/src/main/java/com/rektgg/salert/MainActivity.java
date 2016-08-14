@@ -2,6 +2,7 @@ package com.rektgg.salert;
 
 import android.*;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        Button loginButton = (Button) findViewById(R.id.login_button);
-        Button signupButton = (Button) findViewById(R.id.register_button);
+        ImageButton loginButton = (ImageButton) findViewById(R.id.login_button);
+        ImageButton signupButton = (ImageButton) findViewById(R.id.register_button);
         ImageButton gpsButton = (ImageButton) findViewById(R.id.gps_button);
 
         if (ParseUser.getCurrentUser() != null) {

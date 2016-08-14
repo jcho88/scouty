@@ -3,6 +3,11 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="#F3F1F1" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
         </shape>
     </item>
 </layer-list>

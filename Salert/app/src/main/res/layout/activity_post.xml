@@ -14,6 +14,20 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:gravity="center_vertical|center_horizontal">
+
+        <ImageView
+            android:layout_width="191dp"
+            android:layout_height="89dp"
+            android:src="@drawable/temp_logo"
+            android:id="@+id/imageView2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:id="@+id/header" >
@@ -23,8 +37,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="5dp"
-                android:layout_marginTop="15dp">
+                android:padding="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -40,77 +53,77 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/postForm"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginBottom="30dp">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp">
+                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginBottom="20dp">&ndash;&gt;-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Type of Deal:"
-                        android:id="@+id/tv_deal_type"
-                        android:paddingBottom="15dp"/>
+                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceLarge"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Type of Deal:"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/tv_deal_type"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:paddingBottom="15dp"/>&ndash;&gt;-->
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal">
+                    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:gravity="center_horizontal">&ndash;&gt;-->
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sale"
-                            android:id="@+id/radio_sale_button" />
+                        <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:text="Sale"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:id="@+id/radio_sale_button" />&ndash;&gt;-->
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Promo"
-                            android:id="@+id/radio_promo_button" />
+                        <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:text="Promo"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:id="@+id/radio_promo_button" />&ndash;&gt;-->
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Discount"
-                            android:id="@+id/radio_discount_button" />
-                    </LinearLayout>
+                        <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:text="Discount"&ndash;&gt;-->
+                            <!--&lt;!&ndash;android:id="@+id/radio_discount_button" />&ndash;&gt;-->
+                    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
-                </LinearLayout>
+                <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
-                <!--<LinearLayout-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent">-->
+                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="match_parent">&ndash;&gt;-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                        <!--android:text="Date:"-->
-                        <!--android:id="@+id/tv_deal_date" />-->
+                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textAppearance="?android:attr/textAppearanceLarge"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Date:"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/tv_deal_date" />&ndash;&gt;-->
 
-                    <!--<EditText-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:inputType="date"-->
-                        <!--android:ems="10"-->
-                        <!--android:id="@+id/et_deal_date" />-->
-                <!--</LinearLayout>-->
+                    <!--&lt;!&ndash;<EditText&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:inputType="date"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:ems="10"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/et_deal_date" />&ndash;&gt;-->
+                <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
-            </LinearLayout>
+            <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
             <LinearLayout
                 android:orientation="vertical"
@@ -154,13 +167,14 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal">
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit"
+                android:src="@drawable/button_submit"
+                android:background="#0000"
                 android:id="@+id/bt_submit_post" />
         </LinearLayout>
-
 
     </LinearLayout>
 </ScrollView>

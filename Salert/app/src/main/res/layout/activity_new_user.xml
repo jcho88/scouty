@@ -15,17 +15,15 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="5dp" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/app_name"
-                android:id="@+id/textView3" />
+            <ImageView
+                android:layout_width="191dp"
+                android:layout_height="89dp"
+                android:src="@drawable/temp_logo"
+                android:id="@+id/imageView2" />
         </LinearLayout>
     </LinearLayout>
 
@@ -41,7 +39,7 @@
             android:id="@+id/et_username"
             android:hint="Username"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="50dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -79,12 +77,17 @@
             android:imeActionLabel="@string/signup"
             android:imeOptions="actionDone" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Register"
-            android:id="@+id/b_register"
-            android:layout_below="@+id/et_repeat_password"
-            android:layout_centerHorizontal="true" />
     </RelativeLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/b_register"
+        android:src="@drawable/button_register"
+        android:background="#0000"
+        android:layout_below="@+id/et_repeat_password"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp" />
 </LinearLayout>
