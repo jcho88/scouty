@@ -12,8 +12,38 @@
         android:layout_gravity="center_horizontal|top"
         android:background="@color/bright_foreground_disabled_material_light" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight=".80"
+            android:layout_height="wrap_content"
+            android:text="address"
+            android:id="@+id/tv_shopName"
+            android:textSize="20sp"
+            android:layout_gravity="left|center_vertical" />
+        <!--
+        this view is for the col line separation.
+          -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#FF0000FF" />
 
-        <LinearLayout
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight=".30"
+            android:layout_height="wrap_content"
+            android:text="+1-123-123-1234"
+            android:textSize="13sp"
+            android:id="@+id/tv_shopPhone" />
+
+    </LinearLayout>
+
+    <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,10 +56,17 @@
             android:id="@+id/tv_shopAddress"
             android:textSize="20sp"
             android:layout_gravity="left|center_vertical" />
+        <!--
+        this view is for the col line separation.
+          -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#FF0000FF" />
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight=".20"
+            android:layout_weight=".30"
             android:layout_height="wrap_content"
             android:text="distance"
             android:textSize="20sp"

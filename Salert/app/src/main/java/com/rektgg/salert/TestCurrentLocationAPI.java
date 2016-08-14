@@ -161,8 +161,8 @@ public class TestCurrentLocationAPI extends AppCompatActivity implements GoogleA
                             for (PlaceLikelihood placeLikelihood : likelyPlaces) {
 
                                 if(placeLikelihood.getPlace().getPlaceTypes().toString().contains("79")) {
-                                    shopsProfiles_data.add(
-                                    new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals,placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
+                                   // shopsProfiles_data.add(
+                                    //new ShopsProfile(placeLikelihood.getPlace().getName().toString(), deals,placeLikelihood.getPlace().getAddress().toString(), "(to-do)2 miles"));
                                 }
 
 //                                Log.i(LOG_TAG, String.format("Place '%s' has likelihood: %g",
