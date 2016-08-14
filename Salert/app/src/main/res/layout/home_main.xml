@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="58dp"
             android:gravity="center"
-            android:paddingBottom="5px">
+            android:paddingBottom="10px">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,22 +120,27 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="20px">
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New User"
+            android:src="@drawable/button_new_user"
             android:id="@+id/register_button"
             android:layout_weight="1"
+            android:background="#0000"
             android:layout_gravity="center_vertical" />
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log in"
+            android:src="@drawable/button_login"
             android:id="@+id/login_button"
             android:layout_weight="1"
+            android:background="#0000"
             android:layout_gravity="center_vertical" />
 
         <!--<Button-->
@@ -156,6 +161,11 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/borders"
             android:text="Rekt LLC"
             android:id="@+id/textView"

@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/search_distance"
+        android:text="Contact us: RektLLCHQ@gmail.com"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 
@@ -28,8 +28,10 @@
         android:layout_alignStart="@+id/description_textview"
         android:layout_below="@+id/description_textview" />
 
-    <Button
+    <ImageButton
         android:id="@+id/logout_button"
+        android:src="@drawable/button_logout"
+        android:background="#0000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

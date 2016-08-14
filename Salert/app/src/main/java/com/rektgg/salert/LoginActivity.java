@@ -1,5 +1,6 @@
 package com.rektgg.salert;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.ProgressDialog;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //handle login button
-        Button loginButton = (Button) findViewById(R.id.b_login);
+        ImageButton loginButton = (ImageButton) findViewById(R.id.b_login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 loginUser();

@@ -1,5 +1,6 @@
 package com.rektgg.salert;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,7 @@ import com.parse.SaveCallback;
 
 public class PostActivity extends AppCompatActivity {
 
-    private Button submitButton;
+    private ImageButton submitButton;
     private EditText postEditText;
     private TextView characterCounterTextView;
     Intent shop_profile_data;
@@ -39,7 +41,7 @@ public class PostActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        submitButton = (Button) findViewById(R.id.bt_submit_post);
+        submitButton = (ImageButton) findViewById(R.id.bt_submit_post);
         postEditText = (EditText) findViewById(R.id.et_deal_description);
         characterCounterTextView = (TextView) findViewById(R.id.tv_character_counter);
 

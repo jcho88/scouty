@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -55,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
 //        });
 
         // Set up the log out button click handler
-        Button logoutButton = (Button) findViewById(R.id.logout_button);
+        ImageButton logoutButton = (ImageButton) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Call the Parse log out method

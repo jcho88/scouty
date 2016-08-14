@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class NewUserActivity extends AppCompatActivity {
         });
 
         //handle register button
-        Button registerButton = (Button) findViewById(R.id.b_register);
+        ImageButton registerButton = (ImageButton) findViewById(R.id.b_register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 registerUser();
