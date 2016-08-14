@@ -510,6 +510,8 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
     @Override
     protected void onStop() {
+        Log.d(LOG_TAG, "on stop");
+        onResumeFlag = 1;
         super.onStop();
 
     }
@@ -517,14 +519,10 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     @Override
     protected void onRestart(){
         super.onRestart();
-
-        Log.d(LOG_TAG, "on stop");
-        onResumeFlag = 1;
+        Log.d(LOG_TAG, "on Restart");
 //        checkPlayServices();
 //        mGoogleApiClient.disconnect();
 //        finish();
-
-
     }
 
     //For GooglePlay Services, After being connected.
