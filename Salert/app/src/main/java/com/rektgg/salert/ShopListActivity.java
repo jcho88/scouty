@@ -316,6 +316,7 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     private Location mLastLocation;
     private String toastMsg;
     private boolean locationCheck = false;
+    double longitude, latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -339,6 +340,7 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     //After PlacePicker Intent begin called (startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST))
     //This will method will start.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) { //when a user hit on a location in Place Picker
 
@@ -361,7 +363,6 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
             }else if(resultCode == RESULT_CANCELED){ //when a user hit back button
                 Log.d(LOG_TAG, "Result Canceled");
                 finish();
-
             }
         }
     }
@@ -388,8 +389,8 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
                         Log.d(LOG_TAG, "location check is false");
 
-                        double latitude = mLastLocation.getLatitude();
-                        double longitude = mLastLocation.getLongitude();
+                        latitude = mLastLocation.getLatitude();
+                        longitude = mLastLocation.getLongitude();
 
                         LatLng centerLocation = new LatLng(latitude, longitude);
 
@@ -479,17 +480,19 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
         super.onResume();
 
         checkPlayServices();
+
     }
 
 //    @Override
 //    protected void onPause(){
 //        super.onPause();
 //    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
 
     //For GooglePlay Services, After being connected.
     @Override
