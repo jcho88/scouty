@@ -488,15 +488,17 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
         checkPlayServices();
     }
 
-//    @Override
-//    protected void onPause(){
-//        super.onPause();
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        checkPlayServices();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        checkPlayServices();
+    }
 
     //For GooglePlay Services, After being connected.
     @Override
