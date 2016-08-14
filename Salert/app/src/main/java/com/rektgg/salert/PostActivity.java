@@ -23,6 +23,7 @@ public class PostActivity extends AppCompatActivity {
     private EditText postEditText;
     private TextView characterCounterTextView;
 
+
     private int maxCharacterCount = Application.getConfigHelper().getPostMaxCharacterCount();
 
     @Override
