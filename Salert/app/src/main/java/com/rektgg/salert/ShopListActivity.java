@@ -318,6 +318,7 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     private String toastMsg;
     private boolean locationCheck = false;
     double longitude, latitude;
+    Intent Intent_shopProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -357,7 +358,8 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
                 double reult_miles = getMiles(result);
 
                 Log.d("Asdsa %f", String.valueOf(Math.round(reult_miles*100.0)/100.0));
-                Intent Intent_shopProfile = new Intent(this, ShopProfileActivity.class);
+                Intent_shopProfile = new Intent(this, ShopProfileActivity.class);
+                Intent_shopProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Intent_shopProfile.putExtra("name",place.getName().toString());
                 Intent_shopProfile.putExtra("address",place.getAddress().toString());
                 Intent_shopProfile.putExtra("storeID",place.getId().toString());
@@ -366,7 +368,6 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
                 this.startActivity(Intent_shopProfile);
 
 
-                //finish();
             }else if(resultCode == RESULT_CANCELED){ //when a user hit back button
                 Log.d(LOG_TAG, "Result Canceled");
                 finish();
@@ -487,15 +488,19 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
 
     }
 
-//    @Override
-//    protected void onPause(){
-//        super.onPause();
-//    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+    }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
     }
 
     //For GooglePlay Services, After being connected.

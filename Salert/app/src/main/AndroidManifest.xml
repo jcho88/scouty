@@ -35,23 +35,11 @@
         </activity>
         <activity android:name=".NewUserActivity" />
         <activity android:name=".LoginActivity" />
-        <activity
-            android:name=".ShopProfileActivity"
-            android:parentActivityName=".ShopListActivity"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ShopListActivity" />
-        </activity>
         <activity android:name=".SettingsActivity" />
         <activity
-            android:name=".ShopListActivity"
-            android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+            android:name=".ShopProfileActivity"/>
+        <activity
+            android:name=".ShopListActivity"/>
         <activity
             android:name=".PostActivity"
             android:parentActivityName=".ShopProfileActivity"
