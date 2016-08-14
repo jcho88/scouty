@@ -316,8 +316,6 @@ public class ShopListActivity extends AppCompatActivity implements GoogleApiClie
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private Location mLastLocation;
     private String toastMsg;
-    double latitude;
-    double longitude;
     private boolean locationCheck = false;
     double longitude, latitude;
 
