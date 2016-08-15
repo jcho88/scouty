@@ -20,8 +20,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 
 
 public class ShopProfileActivity extends AppCompatActivity {
@@ -43,6 +46,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     Intent Intent_dealPost;
     int POST_ACTIVITY = 27;
     ShopDealsAdaptor adapter;
+    Date currentDate;
     // Intent postAcivityResultIntent;
 
 
@@ -104,14 +108,15 @@ public class ShopProfileActivity extends AppCompatActivity {
                         }else{
                             userName = "Visitor";
                         }
-
+                        currentDate = object.getCreatedAt();
+                        Log.d(LOG_TAG, DateFormat.getDateInstance().format(currentDate));
                         temp.setText(object.getString("deal_info"));
 
                         userPost = temp.getText();
                         storeID = temp.getStoreId();
 
                         //Log.d("doom", userPost);
-                        shopdeals_data.add(new ShopDeals(userName, userPost, storeID));
+                        shopdeals_data.add(new ShopDeals(userName, userPost, storeID, DateFormat.getDateInstance().format(currentDate)));
 
                         //setting up Array adapter with class ShopDealsAdaptor
                         adapter = new ShopDealsAdaptor(ShopProfileActivity.this,
@@ -123,7 +128,7 @@ public class ShopProfileActivity extends AppCompatActivity {
                         listView1.setAdapter(adapter);
 
                     }
-                    Log.d("FCUASDSA","Asdsa");
+
                     dialog.dismiss();
                 }
 
@@ -168,7 +173,7 @@ public class ShopProfileActivity extends AppCompatActivity {
                 String dealInfo  = data.getStringExtra("deal");
                 String username_result = data.getStringExtra("userName");
                 //updating adapator
-                shopdeals_data.add(new ShopDeals(username_result, dealInfo, storeID));
+                shopdeals_data.add(new ShopDeals(username_result, dealInfo, storeID, DateFormat.getDateInstance().format(new Date() )));
                 //check adaptor declared or not
                 if(adapter != null){
                     adapter.notifyDataSetChanged();

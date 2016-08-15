@@ -38,7 +38,7 @@ public class ShopDealsAdaptor extends ArrayAdapter {
             holder = new dealsDetailHolder();
             holder.username = (TextView)row.findViewById(R.id.tv_shopDeals_username);
             holder.dealDetails = (TextView)row.findViewById(R.id.tv_shopDeals_deal);
-
+            holder.deal_createAt = (TextView)row.findViewById(R.id.tv_shopdeals_createdAt);
             row.setTag(holder);
         }
         else
@@ -49,6 +49,8 @@ public class ShopDealsAdaptor extends ArrayAdapter {
         ShopDeals shopdeals = data.get(position);
         holder.username.setText(shopdeals.username);
         holder.dealDetails.setText(shopdeals.dealDetails);
+        holder.deal_createAt.setText(shopdeals.create_at);
+
 
         return row;
     }
@@ -57,5 +59,6 @@ public class ShopDealsAdaptor extends ArrayAdapter {
     {
         TextView username;
         TextView dealDetails;
+        TextView deal_createAt;
     }
 }
