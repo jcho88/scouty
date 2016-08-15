@@ -10,6 +10,8 @@
         android:layout_height="150dp"
         android:id="@+id/iv_shopProfilePic"
         android:layout_gravity="center_horizontal|top"
+        android:scaleType="fitXY"
+        android:src="@drawable/temp_background"
         android:background="@color/bright_foreground_disabled_material_light" />
 
     <LinearLayout
