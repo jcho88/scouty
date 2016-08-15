@@ -29,6 +29,8 @@ public class PostActivity extends AppCompatActivity {
     private EditText postEditText;
     private TextView characterCounterTextView;
     Intent shop_profile_data;
+    String deal_info;
+    String userName;
 
 
     private int maxCharacterCount = Application.getConfigHelper().getPostMaxCharacterCount();
@@ -74,7 +76,7 @@ public class PostActivity extends AppCompatActivity {
 
     private void post () {
 
-        String text = postEditText.getText().toString().trim();
+        deal_info = postEditText.getText().toString().trim();
 
         // Set up a progress dialog
         final ProgressDialog dialog = new ProgressDialog(PostActivity.this);
@@ -83,13 +85,15 @@ public class PostActivity extends AppCompatActivity {
 
         DealPost post = new DealPost();
 
-        post.setText(text);
+        post.setText(deal_info);
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser != null) {
             post.put("userID", ParseUser.getCurrentUser().getObjectId());
             post.setUser(ParseUser.getCurrentUser());
+            userName = ParseUser.getCurrentUser().getUsername();
         }else{
             post.put("userID", "-1");
+            userName = "Visitor";
         }
         shop_profile_data = getIntent();
         post.setStoreId(shop_profile_data.getStringExtra("storeID"));
@@ -108,11 +112,11 @@ public class PostActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 Log.d("in done", String.valueOf(e));
                 dialog.dismiss();
+                Intent resultIntent = new Intent(PostActivity.this, ShopProfileActivity.class);
+                resultIntent.putExtra("deal",deal_info);
+                resultIntent.putExtra("userName",userName);
+                setResult(RESULT_OK, resultIntent);
                 finish();
-                //TODO
-                //Not efficient way to exit
-//                Intent intent = new Intent(PostActivity.this, ShopProfileActivity.class);
-//                startActivity(intent);
             }
         });
 

@@ -13,11 +13,11 @@ import com.parse.ParseUser;
 public class DealPost extends ParseObject {
 
     public String getText() {
-        return getString("text");
+        return getString("deal_info");
     }
 
     public void setText(String value) {
-        put("text", value);
+        put("deal_info", value);
     }
 
     public ParseUser getUser() {
