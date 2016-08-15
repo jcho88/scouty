@@ -1,15 +1,12 @@
-package com.rektgg.salert;
+package net.rektapps.scouty;
 
 
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 import android.content.SharedPreferences;
 
 import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.SaveCallback;
 
 
 /**

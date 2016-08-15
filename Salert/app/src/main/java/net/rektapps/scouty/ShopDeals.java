@@ -1,4 +1,4 @@
-package com.rektgg.salert;
+package net.rektapps.scouty;
 
 /**
  * Created by steve_000 on 5/19/2016.

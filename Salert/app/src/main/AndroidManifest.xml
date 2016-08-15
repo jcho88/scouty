@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rektgg.salert">
+    package="net.rektapps.scouty">
 
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".Application"
+        android:name="net.rektapps.scouty.Application"
         android:allowBackup="true"
         android:icon="@drawable/temp_icon"
         android:label="@string/app_name"
@@ -22,7 +22,7 @@
             android:value="AIzaSyBBpDwSSigz71S5ITu7v4acH3n6RcgNZik" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="net.rektapps.scouty.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
 
@@ -33,23 +33,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewUserActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ShopProfileActivity" />
-        <activity android:name=".ShopListActivity" />
+        <activity android:name="net.rektapps.scouty.NewUserActivity" />
+        <activity android:name="net.rektapps.scouty.LoginActivity" />
+        <activity android:name="net.rektapps.scouty.SettingsActivity" />
+        <activity android:name="net.rektapps.scouty.ShopProfileActivity" />
+        <activity android:name="net.rektapps.scouty.ShopListActivity" />
         <activity
-            android:name=".PostActivity"
-            android:parentActivityName=".ShopProfileActivity"
+            android:name="net.rektapps.scouty.PostActivity"
+            android:parentActivityName="net.rektapps.scouty.ShopProfileActivity"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ShopProfileActivity" />
+                android:value="net.rektapps.scouty.ShopProfileActivity" />
         </activity>
-        <activity android:name=".TestAPIActivity" />
-        <activity android:name=".TestCurrentLocationAPI" />
-        <activity android:name=".TestGPSActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name="net.rektapps.scouty.TestAPIActivity" />
+        <activity android:name="net.rektapps.scouty.TestCurrentLocationAPI" />
+        <activity android:name="net.rektapps.scouty.TestGPSActivity" />
+        <activity android:name="net.rektapps.scouty.AboutActivity"></activity>
     </application>
 
 </manifest>

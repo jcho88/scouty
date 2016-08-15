@@ -1,6 +1,4 @@
-package com.rektgg.salert;
-
-import android.os.Parcelable;
+package net.rektapps.scouty;
 
 import java.io.Serializable;
 import java.util.ArrayList;

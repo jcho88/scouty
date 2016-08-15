@@ -1,4 +1,4 @@
-package com.rektgg.salert;
+package net.rektapps.scouty;
 
 import com.parse.ConfigCallback;
 import com.parse.ParseConfig;

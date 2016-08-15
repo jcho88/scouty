@@ -1,4 +1,4 @@
-package com.rektgg.salert;
+package net.rektapps.scouty;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.rektgg.salert;
+package net.rektapps.scouty;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
