@@ -43,7 +43,7 @@ public class ShopProfileActivity extends AppCompatActivity {
     Intent Intent_dealPost;
     int POST_ACTIVITY = 27;
     ShopDealsAdaptor adapter;
-   // Intent postAcivityResultIntent;
+    // Intent postAcivityResultIntent;
 
 
 //    final ProgressDialog dialog = new ProgressDialog(ShopProfileActivity.this);
@@ -90,7 +90,7 @@ public class ShopProfileActivity extends AppCompatActivity {
             public void done(List<ParseObject> objectList, ParseException e) {
 
                 //                Log.i("PO list size", Integer.toString(objectList.size()));
-                                Log.i("PO error msg", String.valueOf(e));
+                Log.i("PO error msg", String.valueOf(e));
                 if (e == null) {
 
                     for (ParseObject object : objectList) {

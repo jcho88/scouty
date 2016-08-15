@@ -9,24 +9,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.rektgg.salert.SettingsActivity">
 
-    <TextView
-        android:id="@+id/description_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Contact us: RektLLCHQ@gmail.com"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
 
-    <RadioGroup
-        android:id="@+id/searchdistance_radiogroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/description_textview"
-        android:layout_alignStart="@+id/description_textview"
-        android:layout_below="@+id/description_textview" />
+        <ImageView
+            android:layout_width="191dp"
+            android:layout_height="89dp"
+            android:src="@drawable/temp_logo"
+            android:id="@+id/imageView2" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/logout_button"
